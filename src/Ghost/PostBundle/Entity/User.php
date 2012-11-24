@@ -214,4 +214,22 @@ class User
     {
         return $this->getUsername();
     }
+
+    /**
+     * @param User $user
+     *
+     * @return boolean
+     */
+    public function equals(User $user)
+    {
+        if (!$user) {
+            return false;
+        }
+
+        if ($this->id === $user->getId()) {
+            return true;
+        }
+
+        return false;
+    }
 }
