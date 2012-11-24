@@ -64,7 +64,7 @@ class TopicManager
      */
     public function findTopic($id)
     {
-        return $this->repository->find($id);
+        return $this->repository->findOneBy(array('id' => $id, 'isDeleted' => 0));
     }
 
     /**
@@ -72,7 +72,7 @@ class TopicManager
      */
     public function findAllTopic()
     {
-        return $this->repository->findAll();
+        return $this->repository->findBy(array('isDeleted' => 0));
     }
 
     /**
@@ -87,6 +87,7 @@ class TopicManager
             ->join('t.category', 'c')
             ->join('t.user', 'u')
             ->where('c.id = :category')
+            ->andWhere('t.isDeleted = 0')
             ->setParameter('category', $category->getId());
 
         $query = $qb->getQuery();

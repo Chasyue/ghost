@@ -2,6 +2,7 @@
 namespace Ghost\PostBundle\EntityManager;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ghost\PostBundle\Entity\Topic;
 use Ghost\PostBundle\Event\PostEvent;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -63,7 +64,27 @@ class PostManager
      */
     public function findPost($id)
     {
-        return $this->repository->find($id);
+        return $this->repository->findOneBy(array('id' => $id, 'isDeleted' => 0));
+    }
+
+    /**
+     * @param Topic $topic
+     *
+     * @return array of post
+     */
+    public function findPostByTopic(Topic $topic)
+    {
+        $qb = $this->repository->createQueryBuilder('p')
+            ->select('p, t, u')
+            ->join('p.topic', 't')
+            ->join('p.user', 'u')
+            ->where('t.id = :topic')
+            ->andWhere('p.isDeleted = 0')
+            ->setParameter('topic', $topic->getId());
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
     }
 
     /**
