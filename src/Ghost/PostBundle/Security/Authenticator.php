@@ -2,9 +2,9 @@
 namespace FOS\MessageBundle\Security;
 
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ghost\PostBundle\Security\AuthenticatorInterface;
+use Ghost\PostBundle\Entity\User;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
@@ -33,7 +33,7 @@ class Authenticator implements AuthenticatorInterface
     {
         $user = $this->securityContext->getToken()->getUser();
 
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof User) {
             throw new AccessDeniedException('Must be logged in with a User instance');
         }
 

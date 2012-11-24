@@ -118,15 +118,15 @@ class Topic
     }
 
     /**
-     * Set viewsCount
+     * Increment viewsCount
      *
-     * @param integer $viewsCount
+     * @param integer $by
      *
      * @return Topic
      */
-    public function setViewsCount($viewsCount)
+    public function incrementViewsCount($by = 1)
     {
-        $this->viewsCount = $viewsCount;
+        $this->viewsCount += intval($by);
 
         return $this;
     }
@@ -142,15 +142,15 @@ class Topic
     }
 
     /**
-     * Set repliesCount
+     * Increment repliesCount
      *
-     * @param integer $repliesCount
+     * @param integer $by
      *
      * @return Topic
      */
-    public function setRepliesCount($repliesCount)
+    public function incrementRepliesCount($by = 1)
     {
-        $this->repliesCount = $repliesCount;
+        $this->repliesCount += intval($by);
 
         return $this;
     }
@@ -250,7 +250,7 @@ class Topic
     /**
      * Get posts
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getPosts()
     {

@@ -2,9 +2,12 @@
 namespace Ghost\PostBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\ORM\EntityRepository;
 use Ghost\PostBundle\Entity\Category;
 use Ghost\PostBundle\Entity\Topic;
+use Ghost\PostBundle\Event\Events;
+use Ghost\PostBundle\Event\TopicEvent;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
@@ -27,14 +30,21 @@ class TopicManager
     private $class;
 
     /**
-     * @param EntityManager               $em
-     * @param                             $class
+     * @var EventDispatcherInterface
      */
-    public function __construct(EntityManager $em, $class)
+    private $dispatcher;
+
+    /**
+     * @param EventDispatcherInterface         $dispatcher
+     * @param EntityManager                    $em
+     * @param string                           $class
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
         $this->em         = $em;
         $this->repository = $em->getRepository($class);
         $this->class      = $em->getClassMetadata($class)->getName();
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -89,8 +99,12 @@ class TopicManager
      */
     public function saveTopic(Topic $topic)
     {
+        $this->dispatcher->dispatch(Events::TOPIC_PRE_PERSIST, new TopicEvent($topic));
+
         $this->em->persist($topic);
         $this->em->flush();
+
+        $this->dispatcher->dispatch(Events::TOPIC_PERSIST, new TopicEvent($topic));
     }
 
     /**
@@ -101,5 +115,27 @@ class TopicManager
         $topic->setIsDeleted(true);
         $this->em->persist($topic);
         $this->em->flush();
+
+        $this->dispatcher->dispatch(Events::TOPIC_DELETE, new TopicEvent($topic));
+    }
+
+    /**
+     * @param Topic $topic
+     */
+    public function incrementViewsCount(Topic $topic)
+    {
+        $topic->incrementViewsCount();
+        $this->em->persist($topic);
+        $this->em->flush();
+    }
+
+    /**
+     * @param Topic $topic
+     *
+     * @return bool
+     */
+    public function isNewTopic(Topic $topic)
+    {
+        return !$this->em->getUnitOfWork()->isInIdentityMap($topic);
     }
 }

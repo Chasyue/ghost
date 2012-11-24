@@ -1,9 +1,12 @@
 <?php
 namespace Ghost\PostBundle\EntityManager;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ghost\PostBundle\Event\PostEvent;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Ghost\PostBundle\Entity\Post;
+use Ghost\PostBundle\Event\Events;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
@@ -26,11 +29,18 @@ class PostManager
     private $class;
 
     /**
-     * @param EntityManager               $em
-     * @param                             $class
+     * @var EventDispatcherInterface
      */
-    public function __construct(EntityManager $em, $class)
+    private $dispatcher;
+
+    /**
+     * @param EventDispatcherInterface     $dispatcher
+     * @param EntityManager                $em
+     * @param string                       $class
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
+        $this->dispatcher = $dispatcher;
         $this->em         = $em;
         $this->repository = $em->getRepository($class);
         $this->class      = $em->getClassMetadata($class)->getName();
@@ -61,8 +71,12 @@ class PostManager
      */
     public function savePost(Post $post)
     {
+        $this->dispatcher->dispatch(Events::POST_PRE_PERSIST, new PostEvent($post));
+
         $this->em->persist($post);
         $this->em->flush();
+
+        $this->dispatcher->dispatch(Events::POST_PERSIST, new PostEvent($post));
     }
 
     /**
@@ -73,5 +87,17 @@ class PostManager
         $post->setIsDeleted(true);
         $this->em->persist($post);
         $this->em->flush();
+
+        $this->dispatcher->dispatch(Events::POST_DELETE, new PostEvent($post));
+    }
+
+    /**
+     * @param Post $post
+     *
+     * @return bool
+     */
+    public function isNewPost(Post $post)
+    {
+        return !$this->em->getUnitOfWork()->isInIdentityMap($post);
     }
 }

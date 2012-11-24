@@ -28,11 +28,14 @@ class TopicController extends Controller
      */
     public function showAction($id)
     {
-        $topic = $this->getManager()->findTopic($id);
+        $topicManager = $this->getManager();
+        $topic        = $topicManager->findTopic($id);
 
         if (!$topic) {
             throw $this->createNotFoundException('Unable to find Topic.');
         }
+
+        $topicManager->incrementViewsCount($topic);
 
         $postForm = $this->get('ghost.form_factory.post_new')->createForm($topic);
 

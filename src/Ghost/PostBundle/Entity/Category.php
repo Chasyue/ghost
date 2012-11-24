@@ -21,7 +21,7 @@ class Category
     /**
      * @var integer $topicsCount
      */
-    private $topicsCount;
+    private $topicsCount = 0;
 
     /**
      * @var integer $id
@@ -77,20 +77,6 @@ class Category
     }
 
     /**
-     * Set topicsCount
-     *
-     * @param integer $topicsCount
-     *
-     * @return Category
-     */
-    public function setTopicsCount($topicsCount)
-    {
-        $this->topicsCount = $topicsCount;
-
-        return $this;
-    }
-
-    /**
      * Get topicsCount
      *
      * @return integer
@@ -118,5 +104,17 @@ class Category
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return Category
+     */
+    public function incrementTopicsCount($by = 1)
+    {
+        $this->topicsCount += intval($by);
+
+        return $this;
     }
 }
