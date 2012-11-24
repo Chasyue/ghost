@@ -90,8 +90,7 @@ class PostController extends Controller
                 throw $this->createNotFoundException('Unable to find Post.');
             }
 
-            $post->setIsDeleted(true);
-            $postManager->savePost($post);
+            $postManager->deletePost($post);
         }
 
         return $this->redirect($this->generateUrl('post'));
