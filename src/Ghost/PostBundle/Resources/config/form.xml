@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="ghost.form_type.topic" class="Ghost\PostBundle\Form\TopicType" public="false"/>
+        <service id="ghost.form_type.post" class="Ghost\PostBundle\Form\PostType" public="false"/>
+
+        <service id="ghost.form_factory.topic_new" class="Ghost\PostBundle\FormFactory\NewTopicFormFactory">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="ghost.form_type.topic"/>
+            <argument>%ghost.entity.topic.class%</argument>
+        </service>
+
+        <service id="ghost.form_factory.topic_edit" class="Ghost\PostBundle\FormFactory\EditTopicFormFactory">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="ghost.form_type.topic"/>
+        </service>
+
+        <service id="ghost.form_factory.post_new" class="Ghost\PostBundle\FormFactory\NewPostFormFactory">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="ghost.form_type.post"/>
+            <argument>%ghost.entity.post.class%</argument>
+        </service>
+
+        <service id="ghost.form_factory.post_edit" class="Ghost\PostBundle\FormFactory\EditPostFormFactory">
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="ghost.form_type.post"/>
+        </service>
+    </services>
+</container>

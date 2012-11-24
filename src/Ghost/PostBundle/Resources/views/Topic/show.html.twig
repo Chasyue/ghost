@@ -1,0 +1,59 @@
+<h1>Topic</h1>
+
+<table class="record_properties">
+    <tbody>
+    <tr>
+        <th>Title</th>
+        <td>{{ topic.title }}</td>
+    </tr>
+    <tr>
+        <th>Body</th>
+        <td>{{ topic.body }}</td>
+    </tr>
+    <tr>
+        <th>Viewscount</th>
+        <td>{{ topic.viewsCount }}</td>
+    </tr>
+    <tr>
+        <th>Repliescount</th>
+        <td>{{ topic.repliesCount }}</td>
+    </tr>
+    <tr>
+        <th>Isdeleted</th>
+        <td>{{ topic.isDeleted }}</td>
+    </tr>
+    <tr>
+        <th>Created</th>
+        <td>{{ topic.created }}</td>
+    </tr>
+    <tr>
+        <th>Id</th>
+        <td>{{ topic.id }}</td>
+    </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('topic') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('topic_edit', { 'id': topic.id }) }}">
+            Edit
+        </a>
+    </li>
+</ul>
+
+{% for post in topic.posts %}
+
+    <p>{{ post.body }} on {{ post.created|date }}, by {{ post.user.username }}</p>
+
+{% endfor %}
+
+<h2>Reply</h2>
+<form action="{{ path('post_new', { 'topicId': topic.id }) }}" method="post">
+    {{ form_widget(post_form) }}
+    <button type="submit">Submit</button>
+</form>

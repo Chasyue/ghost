@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Ghost\PostBundle\Entity\Topic" table="topic">
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+        <field name="title" type="string" column="title" length="200" nullable="false"/>
+        <field name="body" type="text" column="body" nullable="false"/>
+        <field name="viewsCount" type="integer" column="views_count" nullable="false"/>
+        <field name="repliesCount" type="integer" column="replies_count" nullable="false"/>
+        <field name="isDeleted" type="boolean" column="is_deleted" nullable="false"/>
+        <field name="created" type="integer" column="created" nullable="false"/>
+        <one-to-many field="posts" target-entity="Post" mapped-by="topic"/>
+        <many-to-one field="user" target-entity="User">
+            <join-columns>
+                <join-column name="user_id" referenced-column-name="id"/>
+            </join-columns>
+        </many-to-one>
+        <many-to-one field="category" target-entity="Category">
+            <join-columns>
+                <join-column name="category_id" referenced-column-name="id"/>
+            </join-columns>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

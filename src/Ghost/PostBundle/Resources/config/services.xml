@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="ghost.manager.category.class">Ghost\PostBundle\EntityManager\CategoryManager</parameter>
+        <parameter key="ghost.manager.topic.class">Ghost\PostBundle\EntityManager\TopicManager</parameter>
+        <parameter key="ghost.manager.post.class">Ghost\PostBundle\EntityManager\PostManager</parameter>
+        <parameter key="ghost.entity.category.class">Ghost\PostBundle\Entity\Category</parameter>
+        <parameter key="ghost.entity.topic.class">Ghost\PostBundle\Entity\Topic</parameter>
+        <parameter key="ghost.entity.post.class">Ghost\PostBundle\Entity\Post</parameter>
+    </parameters>
+
+    <services>
+        <service id="ghost.manager.category" class="%ghost.manager.category.class%">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument>%ghost.entity.category.class%</argument>
+        </service>
+        <service id="ghost.manager.topic" class="%ghost.manager.topic.class%">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument>%ghost.entity.topic.class%</argument>
+        </service>
+        <service id="ghost.manager.post" class="%ghost.manager.post.class%">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument>%ghost.entity.post.class%</argument>
+        </service>
+    </services>
+</container>

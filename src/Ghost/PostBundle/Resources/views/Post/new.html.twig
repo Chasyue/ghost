@@ -1,0 +1,8 @@
+<h1>Post creation</h1>
+
+<form action="{{ path('post_new', {'topicId': topic.id}) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
