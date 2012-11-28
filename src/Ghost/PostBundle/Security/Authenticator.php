@@ -4,7 +4,7 @@ namespace FOS\MessageBundle\Security;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ghost\PostBundle\Security\AuthenticatorInterface;
-use Ghost\PostBundle\Entity\User;
+use Ghost\UserBundle\Entity\User;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>

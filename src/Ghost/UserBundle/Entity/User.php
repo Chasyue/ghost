@@ -1,45 +1,52 @@
 <?php
-namespace Ghost\PostBundle\Entity;
+namespace Ghost\UserBundle\Entity;
+
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User entity
  *
  * @author Wenming Tang <tang@babyfamily.com>
  */
-class User
+class User implements UserInterface
 {
     /**
-     * @var string $username
+     * @var string
      */
     private $username;
 
     /**
-     * @var string $password
+     * @var string
      */
     private $password;
 
     /**
-     * @var string $salt
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
+     * @var string
      */
     private $salt;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var string $email
+     * @var string
      */
     private $email;
 
     /**
-     * @var integer $created
+     * @var integer
      */
     private $created;
 
     /**
-     * @var integer $id
+     * @var integer
      */
     private $id;
 
@@ -49,6 +56,7 @@ class User
     public function __construct()
     {
         $this->created = time();
+        $this->salt    = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
     /**
@@ -100,17 +108,27 @@ class User
     }
 
     /**
-     * Set salt
+     * Set plain password
      *
-     * @param string $salt
+     * @param string $password
      *
      * @return User
      */
-    public function setSalt($salt)
+    public function setPlainPassword($password)
     {
-        $this->salt = $salt;
+        $this->plainPassword = $password;
 
         return $this;
+    }
+
+    /**
+     * Get plain password
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 
     /**
@@ -203,6 +221,22 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
     }
 
     /**

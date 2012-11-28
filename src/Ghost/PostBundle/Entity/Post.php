@@ -1,6 +1,8 @@
 <?php
 namespace Ghost\PostBundle\Entity;
 
+use Ghost\UserBundle\Entity\User;
+
 /**
  * Post entity
  *

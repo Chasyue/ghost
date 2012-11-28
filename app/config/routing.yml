@@ -1,3 +1,7 @@
+ghost_user:
+    resource: "@GhostUserBundle/Resources/config/routing.xml"
+    prefix:   /user
+
 ghost_post:
     resource: "@GhostPostBundle/Resources/config/routing.xml"
     prefix:   /

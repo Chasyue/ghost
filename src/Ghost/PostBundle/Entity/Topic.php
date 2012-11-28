@@ -2,6 +2,7 @@
 namespace Ghost\PostBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ghost\UserBundle\Entity\User;
 
 /**
  * Topic entity

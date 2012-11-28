@@ -3,12 +3,34 @@ namespace Ghost\PostBundle\FormFactory;
 
 use Ghost\PostBundle\Entity\Post;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\AbstractType;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
-class EditPostFormFactory extends AbstractFormFactory
+class EditPostFormFactory
 {
+    /**
+     * @var FormFactoryInterface
+     */
+    protected $formFactory;
+
+    /**
+     * @var AbstractType
+     */
+    protected $type;
+
+    /**
+     * @param FormFactoryInterface                         $formFactory
+     * @param AbstractType                                 $type
+     */
+    public function __construct(FormFactoryInterface $formFactory, AbstractType $type)
+    {
+        $this->formFactory = $formFactory;
+        $this->type        = $type;
+    }
+
     /**
      * Creates a form
      *

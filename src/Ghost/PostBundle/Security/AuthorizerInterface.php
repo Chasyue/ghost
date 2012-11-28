@@ -29,7 +29,7 @@ interface AuthorizerInterface
 
     /**
      * Checks if the user should be able to edit a post.
-     * 
+     *
      * @param Post $post
      *
      * @return boolean
@@ -38,7 +38,7 @@ interface AuthorizerInterface
 
     /**
      * Checks if the user should be able to delete a post.
-     * 
+     *
      * @param Post $post
      *
      * @return boolean

@@ -1,5 +1,5 @@
 <?php
-namespace Ghost\PostBundle\FormFactory;
+namespace Ghost\UserBundle\FormFactory;
 
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\AbstractType;

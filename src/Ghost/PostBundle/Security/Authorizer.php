@@ -1,7 +1,7 @@
 <?php
 namespace Ghost\PostBundle\Security;
 
-use Ghost\PostBundle\Entity\User;
+use Ghost\UserBundle\Entity\User;
 use Ghost\PostBundle\Entity\Topic;
 use Ghost\PostBundle\Entity\Post;
 

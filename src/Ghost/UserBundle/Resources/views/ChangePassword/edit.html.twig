@@ -1,0 +1,8 @@
+<h1>Password edit</h1>
+
+<form action="{{ path('user_change_password') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Edit</button>
+    </p>
+</form>
