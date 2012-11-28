@@ -15,22 +15,29 @@ class ProfileFormHandler
 
     protected $userManager;
 
-    public function __construct(Request $request, UserManager $userManager)
+    protected $form;
+
+    public function __construct(FormInterface $form, Request $request, UserManager $userManager)
     {
+        $this->form        = $form;
         $this->request     = $request;
         $this->userManager = $userManager;
     }
 
-    public function process(FormInterface $form)
+    public function process(User $user)
     {
-        if ('POST' === $this->request->getMethod()) {
-            $form->bind($this->request);
+        $this->form->setData($user);
 
-            if ($form->isValid()) {
-                $this->onSuccess($form->getData());
+        if ('POST' === $this->request->getMethod()) {
+            $this->form->bind($this->request);
+
+            if ($this->form->isValid()) {
+                $this->onSuccess($user);
 
                 return true;
             }
+
+            $this->userManager->reloadUser($user);
         }
 
         return false;

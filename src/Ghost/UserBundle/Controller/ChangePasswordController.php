@@ -13,7 +13,7 @@ use Ghost\UserBundle\Entity\User;
  */
 class ChangePasswordController extends Controller
 {
-    public function editAction(Request $request)
+    public function editAction()
     {
         $user = $this->getUser();
 
@@ -21,10 +21,10 @@ class ChangePasswordController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $form        = $this->get('ghost.form_factory.change_password')->createForm($user);
-        $formHandler = $this->get('ghost.form_handler.change_password');
+        $form        = $this->get('ghost.form.change_password');
+        $formHandler = $this->get('ghost.form.handler.change_password');
 
-        if ($formHandler->process($form, $user)) {
+        if ($formHandler->process($user)) {
             return $this->redirect($this->generateUrl('home'));
         }
 

@@ -15,24 +15,28 @@ class RegistrationFormHandler
 
     protected $userManager;
 
-    public function __construct(Request $request, UserManager $userManager)
+    protected $form;
+
+    public function __construct(FormInterface $form, Request $request, UserManager $userManager)
     {
+        $this->form        = $form;
         $this->request     = $request;
         $this->userManager = $userManager;
     }
 
-    public function process(FormInterface $form)
+    public function process()
     {
-        if ('POST' === $this->request->getMethod()) {
-            $form->bind($this->request);
+        $user = $this->createUser();
+        $this->form->setData($user);
 
-            if ($form->isValid()) {
-                $this->onSuccess($form->getData());
+        if ('POST' === $this->request->getMethod()) {
+            $this->form->bind($this->request);
+
+            if ($this->form->isValid()) {
+                $this->onSuccess($user);
 
                 return true;
             }
-
-            $this->userManager->reloadUser($form->getData());
         }
 
         return false;
@@ -41,5 +45,13 @@ class RegistrationFormHandler
     protected function onSuccess(User $user)
     {
         $this->userManager->saveUser($user);
+    }
+
+    /**
+     * @return User
+     */
+    protected function createUser()
+    {
+        return $this->userManager->createUser();
     }
 }

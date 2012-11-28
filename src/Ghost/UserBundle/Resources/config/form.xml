@@ -4,41 +4,42 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="ghost.form_type.registration" class="Ghost\UserBundle\Form\RegistrationType" public="false"/>
-        <service id="ghost.form_type.profile" class="Ghost\UserBundle\Form\ProfileType" public="false"/>
-        <service id="ghost.form_type.change_password" class="Ghost\UserBundle\Form\ChangePasswordType" public="false"/>
+        <service id="ghost.form.type.registration" class="Ghost\UserBundle\Form\RegistrationType" public="false"/>
+        <service id="ghost.form.type.profile" class="Ghost\UserBundle\Form\ProfileType" public="false"/>
+        <service id="ghost.form.type.change_password" class="Ghost\UserBundle\Form\ChangePasswordType" public="false"/>
 
-        <service id="ghost.form_factory.registration" class="Ghost\UserBundle\FormFactory\RegistrationFormFactory">
-            <argument type="service" id="form.factory"/>
-            <argument type="service" id="ghost.form_type.registration"/>
-            <argument>%ghost.entity.user.class%</argument>
+        <service id="ghost.form.change_password" factory-method="create" factory-service="form.factory"
+                 class="Symfony\Component\Form\Form">
+            <argument type="service" id="ghost.form.type.change_password"/>
         </service>
 
-        <service id="ghost.form_factory.profile" class="Ghost\UserBundle\FormFactory\ProfileFormFactory">
-            <argument type="service" id="form.factory"/>
-            <argument type="service" id="ghost.form_type.profile"/>
+        <service id="ghost.form.registration" factory-method="create" factory-service="form.factory"
+                 class="Symfony\Component\Form\Form">
+            <argument type="service" id="ghost.form.type.registration"/>
         </service>
 
-        <service id="ghost.form_factory.change_password" class="Ghost\UserBundle\FormFactory\ChangePasswordFormFactory">
-            <argument type="service" id="form.factory"/>
-            <argument type="service" id="ghost.form_type.change_password"/>
-            <argument>Ghost\UserBundle\FormModel\ChangePassword</argument>
+        <service id="ghost.form.profile" factory-method="create" factory-service="form.factory"
+                 class="Symfony\Component\Form\Form">
+            <argument type="service" id="ghost.form.type.profile"/>
         </service>
 
-        <service id="ghost.form_handler.registration" class="Ghost\UserBundle\FormHandler\RegistrationFormHandler"
+        <service id="ghost.form.handler.registration" class="Ghost\UserBundle\FormHandler\RegistrationFormHandler"
                  scope="request">
+            <argument type="service" id="ghost.form.registration"/>
             <argument type="service" id="request"/>
             <argument type="service" id="ghost.manager.user"/>
         </service>
 
-        <service id="ghost.form_handler.profile" class="Ghost\UserBundle\FormHandler\ProfileFormHandler"
+        <service id="ghost.form.handler.profile" class="Ghost\UserBundle\FormHandler\ProfileFormHandler"
                  scope="request">
+            <argument type="service" id="ghost.form.profile"/>
             <argument type="service" id="request"/>
             <argument type="service" id="ghost.manager.user"/>
         </service>
 
-        <service id="ghost.form_handler.change_password" class="Ghost\UserBundle\FormHandler\ChangePasswordFormHandler"
+        <service id="ghost.form.handler.change_password" class="Ghost\UserBundle\FormHandler\ChangePasswordFormHandler"
                  scope="request">
+            <argument type="service" id="ghost.form.change_password"/>
             <argument type="service" id="request"/>
             <argument type="service" id="ghost.manager.user"/>
         </service>

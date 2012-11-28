@@ -10,12 +10,12 @@ use Symfony\Component\Security\Core\SecurityContext;
  */
 class RegistrationController extends Controller
 {
-    public function registerAction(Request $request)
+    public function registerAction()
     {
-        $form        = $this->get('ghost.form_factory.registration')->createForm();
-        $formHandler = $this->get('ghost.form_handler.registration');
+        $form        = $this->get('ghost.form.registration');
+        $formHandler = $this->get('ghost.form.handler.registration');
 
-        if ($formHandler->process($form)) {
+        if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('home'));
         }
 

@@ -16,7 +16,7 @@
         <default key="_controller">GhostUserBundle:ChangePassword:edit</default>
     </route>
 
-    <route id="user_new" pattern="/register">
+    <route id="user_register" pattern="/register">
         <default key="_controller">GhostUserBundle:Registration:register</default>
     </route>
 
