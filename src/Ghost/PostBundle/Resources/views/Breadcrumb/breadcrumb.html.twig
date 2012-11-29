@@ -1,5 +1,9 @@
 {% for crumb in breadcrumbs %}
-    {{ crumb.text }}
+    {% if crumb.url %}
+        <a href="{{ crumb.url }}">{{ crumb.text }}</a>
+    {% else %}
+        {{ crumb.text }}
+    {% endif %}
     {% if not loop.last %}
         >
     {% endif %}
