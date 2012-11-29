@@ -22,5 +22,6 @@ class GhostPostExtension extends Extension
         $loader->load('events.xml');
         $loader->load('form.xml');
         $loader->load('breadcrumb.xml');
+        $loader->load('pager.xml');
     }
 }
