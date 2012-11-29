@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="ghost.breadcrumb" class="Ghost\PostBundle\Breadcrumb\Breadcrumb">
+        </service>
+
+        <service id="ghost.breadcrumb.twig" class="Ghost\PostBundle\Twig\Extension\BreadcrumbExtension">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="ghost.breadcrumb" />
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

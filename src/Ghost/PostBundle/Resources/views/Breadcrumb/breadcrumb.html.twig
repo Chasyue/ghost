@@ -1,0 +1,6 @@
+{% for crumb in breadcrumbs %}
+    {{ crumb.text }}
+    {% if not loop.last %}
+        >
+    {% endif %}
+{% endfor %}

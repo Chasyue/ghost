@@ -28,6 +28,8 @@ class TopicController extends Controller
      */
     public function showAction($id)
     {
+        $this->get('ghost.breadcrumb')->add('category')->add('topic');
+
         $topic = $this->get('ghost.manager.topic')->findTopic($id);
 
         if (!$topic) {
