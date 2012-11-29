@@ -14,8 +14,7 @@ class TopicType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('body')
-            ->add('user');
+            ->add('body');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

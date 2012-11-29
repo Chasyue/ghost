@@ -1,18 +1,17 @@
 <?php
 namespace Ghost\PostBundle\EntityManager;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ghost\PostBundle\Entity\Topic;
-use Ghost\PostBundle\Event\PostEvent;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Ghost\PostBundle\Entity\Post;
-use Ghost\PostBundle\Event\Events;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ghost\PostBundle\Model\TopicInterface;
+use Ghost\PostBundle\Model\PostInterface;
+use Ghost\PostBundle\ModelManager\PostManager as BasePostManager;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
-class PostManager
+class PostManager extends BasePostManager
 {
     /**
      * @var EntityManager
@@ -30,37 +29,21 @@ class PostManager
     private $class;
 
     /**
-     * @var EventDispatcherInterface
-     */
-    private $dispatcher;
-
-    /**
      * @param EventDispatcherInterface     $dispatcher
      * @param EntityManager                $em
      * @param string                       $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
-        $this->dispatcher = $dispatcher;
+        parent::__construct($dispatcher);
+
         $this->em         = $em;
         $this->repository = $em->getRepository($class);
         $this->class      = $em->getClassMetadata($class)->getName();
     }
 
     /**
-     * @return Post
-     */
-    public function createPost()
-    {
-        $post = new $this->class;
-
-        return $post;
-    }
-
-    /**
-     * @param integer $id
-     *
-     * @return Post
+     * {@inheritDoc}
      */
     public function findPost($id)
     {
@@ -68,11 +51,9 @@ class PostManager
     }
 
     /**
-     * @param Topic $topic
-     *
-     * @return array of post
+     * {@inheritDoc}
      */
-    public function findPostByTopic(Topic $topic)
+    public function findPostByTopic(TopicInterface $topic)
     {
         $qb = $this->repository->createQueryBuilder('p')
             ->select('p, t, u')
@@ -88,37 +69,37 @@ class PostManager
     }
 
     /**
-     * @param Post $post
+     * {@inheritDoc}
      */
-    public function savePost(Post $post)
+    public function doSavePost(PostInterface $post)
     {
-        $this->dispatcher->dispatch(Events::POST_PRE_PERSIST, new PostEvent($post));
-
         $this->em->persist($post);
         $this->em->flush();
-
-        $this->dispatcher->dispatch(Events::POST_PERSIST, new PostEvent($post));
     }
 
     /**
-     * @param Post $post
+     * {@inheritDoc}
      */
-    public function deletePost(Post $post)
+    public function doDeletePost(PostInterface $post)
     {
         $post->setIsDeleted(true);
         $this->em->persist($post);
         $this->em->flush();
-
-        $this->dispatcher->dispatch(Events::POST_DELETE, new PostEvent($post));
     }
 
     /**
-     * @param Post $post
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isNewPost(Post $post)
+    public function isNewPost(PostInterface $post)
     {
         return !$this->em->getUnitOfWork()->isInIdentityMap($post);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 }

@@ -13,8 +13,7 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('body')
-            ->add('user');
+            ->add('body');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

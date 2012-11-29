@@ -2,9 +2,9 @@
 namespace Ghost\UserBundle\FormHandler;
 
 use Symfony\Component\Form\FormInterface;
-use Ghost\UserBundle\Entity\User;
-use Ghost\UserBundle\EntityManager\UserManager;
+use Ghost\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ghost\UserBundle\EntityManager\UserManager;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
@@ -42,13 +42,13 @@ class RegistrationFormHandler
         return false;
     }
 
-    protected function onSuccess(User $user)
+    protected function onSuccess(UserInterface $user)
     {
         $this->userManager->saveUser($user);
     }
 
     /**
-     * @return User
+     * @return UserInterface
      */
     protected function createUser()
     {

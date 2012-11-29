@@ -3,12 +3,13 @@ namespace Ghost\PostBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Ghost\PostBundle\Entity\Category;
+use Ghost\PostBundle\ModelManager\CategoryManager as BaseCategoryManager;
+use Ghost\PostBundle\Model\CategoryInterface;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
-class CategoryManager
+class CategoryManager extends BaseCategoryManager
 {
     /**
      * @var EntityManager
@@ -39,7 +40,7 @@ class CategoryManager
     /**
      * @param string $alias
      *
-     * @return Category
+     * @return CategoryInterface
      */
     public function findCategoryByAlias($alias)
     {

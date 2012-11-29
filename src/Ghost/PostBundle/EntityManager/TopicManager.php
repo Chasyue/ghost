@@ -2,17 +2,16 @@
 namespace Ghost\PostBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\ORM\EntityRepository;
-use Ghost\PostBundle\Entity\Category;
-use Ghost\PostBundle\Entity\Topic;
-use Ghost\PostBundle\Event\Events;
-use Ghost\PostBundle\Event\TopicEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ghost\PostBundle\Model\TopicInterface;
+use Ghost\PostBundle\Model\CategoryInterface;
+use Ghost\PostBundle\ModelManager\TopicManager as BaseTopicManager;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
-class TopicManager
+class TopicManager extends BaseTopicManager
 {
     /**
      * @var EntityManager
@@ -30,37 +29,21 @@ class TopicManager
     private $class;
 
     /**
-     * @var EventDispatcherInterface
-     */
-    private $dispatcher;
-
-    /**
      * @param EventDispatcherInterface         $dispatcher
      * @param EntityManager                    $em
      * @param string                           $class
      */
     public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
+        parent::__construct($dispatcher);
+
         $this->em         = $em;
         $this->repository = $em->getRepository($class);
         $this->class      = $em->getClassMetadata($class)->getName();
-        $this->dispatcher = $dispatcher;
     }
 
     /**
-     * @return Topic
-     */
-    public function createTopic()
-    {
-        $topic = new $this->class;
-
-        return $topic;
-    }
-
-    /**
-     * @param integer $id
-     *
-     * @return Topic
+     * {@inheritDoc}
      */
     public function findTopic($id)
     {
@@ -68,7 +51,7 @@ class TopicManager
     }
 
     /**
-     * @return array of topic
+     * {@inheritDoc}
      */
     public function findAllTopic()
     {
@@ -76,11 +59,9 @@ class TopicManager
     }
 
     /**
-     * @param Category $category
-     *
-     * @return array of topic
+     * {@inheritDoc}
      */
-    public function findTopicByCategory(Category $category)
+    public function findTopicByCategory(CategoryInterface $category)
     {
         $qb = $this->repository->createQueryBuilder('t')
             ->select('t, c, u')
@@ -96,34 +77,28 @@ class TopicManager
     }
 
     /**
-     * @param Topic $topic
+     * {@inheritDoc}
      */
-    public function saveTopic(Topic $topic)
+    public function doSaveTopic(TopicInterface $topic)
     {
-        $this->dispatcher->dispatch(Events::TOPIC_PRE_PERSIST, new TopicEvent($topic));
-
         $this->em->persist($topic);
         $this->em->flush();
-
-        $this->dispatcher->dispatch(Events::TOPIC_PERSIST, new TopicEvent($topic));
     }
 
     /**
-     * @param Topic $topic
+     * {@inheritDoc}
      */
-    public function deleteTopic(Topic $topic)
+    public function doDeleteTopic(TopicInterface $topic)
     {
         $topic->setIsDeleted(true);
         $this->em->persist($topic);
         $this->em->flush();
-
-        $this->dispatcher->dispatch(Events::TOPIC_DELETE, new TopicEvent($topic));
     }
 
     /**
-     * @param Topic $topic
+     * {@inheritDoc}
      */
-    public function incrementViewsCount(Topic $topic)
+    public function incrementViewsCount(TopicInterface $topic)
     {
         $topic->incrementViewsCount();
         $this->em->persist($topic);
@@ -131,12 +106,18 @@ class TopicManager
     }
 
     /**
-     * @param Topic $topic
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isNewTopic(Topic $topic)
+    public function isNewTopic(TopicInterface $topic)
     {
         return !$this->em->getUnitOfWork()->isInIdentityMap($topic);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 }

@@ -4,29 +4,43 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="ghost.form_type.topic" class="Ghost\PostBundle\Form\TopicType" public="false"/>
-        <service id="ghost.form_type.post" class="Ghost\PostBundle\Form\PostType" public="false"/>
+        <service id="ghost.form.type.topic" class="Ghost\PostBundle\Form\TopicType" public="false"/>
+        <service id="ghost.form.type.post" class="Ghost\PostBundle\Form\PostType" public="false"/>
 
-        <service id="ghost.form_factory.topic_new" class="Ghost\PostBundle\FormFactory\NewTopicFormFactory">
+        <service id="ghost.form.factory.topic_new" class="Ghost\PostBundle\FormFactory\NewTopicFormFactory">
             <argument type="service" id="form.factory"/>
-            <argument type="service" id="ghost.form_type.topic"/>
+            <argument type="service" id="ghost.form.type.topic"/>
             <argument>%ghost.entity.topic.class%</argument>
+            <argument type="service" id="security.context"/>
         </service>
 
-        <service id="ghost.form_factory.topic_edit" class="Ghost\PostBundle\FormFactory\EditTopicFormFactory">
+        <service id="ghost.form.factory.topic_edit" class="Ghost\PostBundle\FormFactory\EditTopicFormFactory">
             <argument type="service" id="form.factory"/>
-            <argument type="service" id="ghost.form_type.topic"/>
+            <argument type="service" id="ghost.form.type.topic"/>
         </service>
 
-        <service id="ghost.form_factory.post_new" class="Ghost\PostBundle\FormFactory\NewPostFormFactory">
+        <service id="ghost.form.factory.post_new" class="Ghost\PostBundle\FormFactory\NewPostFormFactory">
             <argument type="service" id="form.factory"/>
-            <argument type="service" id="ghost.form_type.post"/>
+            <argument type="service" id="ghost.form.type.post"/>
             <argument>%ghost.entity.post.class%</argument>
+            <argument type="service" id="security.context"/>
         </service>
 
-        <service id="ghost.form_factory.post_edit" class="Ghost\PostBundle\FormFactory\EditPostFormFactory">
+        <service id="ghost.form.factory.post_edit" class="Ghost\PostBundle\FormFactory\EditPostFormFactory">
             <argument type="service" id="form.factory"/>
-            <argument type="service" id="ghost.form_type.post"/>
+            <argument type="service" id="ghost.form.type.post"/>
+        </service>
+
+        <service id="ghost.form.handler.topic" class="Ghost\PostBundle\FormHandler\TopicFormHandler"
+                 scope="request">
+            <argument type="service" id="request"/>
+            <argument type="service" id="ghost.manager.topic"/>
+        </service>
+
+        <service id="ghost.form.handler.post" class="Ghost\PostBundle\FormHandler\PostFormHandler"
+                 scope="request">
+            <argument type="service" id="request"/>
+            <argument type="service" id="ghost.manager.post"/>
         </service>
     </services>
 </container>

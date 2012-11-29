@@ -2,8 +2,8 @@
 namespace Ghost\UserBundle\FormHandler;
 
 use Symfony\Component\Form\FormInterface;
+use Ghost\UserBundle\Model\UserInterface;
 use Ghost\UserBundle\FormModel\ChangePassword;
-use Ghost\UserBundle\Entity\User;
 use Ghost\UserBundle\EntityManager\UserManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,7 +25,7 @@ class ChangePasswordFormHandler
         $this->userManager = $userManager;
     }
 
-    public function process(User $user)
+    public function process(UserInterface $user)
     {
         $this->form->setData(new ChangePassword());
 
@@ -42,7 +42,7 @@ class ChangePasswordFormHandler
         return false;
     }
 
-    protected function onSuccess(User $user)
+    protected function onSuccess(UserInterface $user)
     {
         $user->setPlainPassword($this->getNewPassword());
         $this->userManager->saveUser($user);

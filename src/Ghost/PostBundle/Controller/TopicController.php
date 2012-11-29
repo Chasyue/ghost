@@ -16,7 +16,7 @@ class TopicController extends Controller
      */
     public function indexAction()
     {
-        $topics = $this->getManager()->findAllTopic();
+        $topics = $this->get('ghost.manager.topic')->findAllTopic();
 
         return $this->render('GhostPostBundle:Topic:index.html.twig', array(
             'topics' => $topics,
@@ -28,16 +28,14 @@ class TopicController extends Controller
      */
     public function showAction($id)
     {
-        $topicManager = $this->getManager();
-        $topic        = $topicManager->findTopic($id);
+        $topic = $this->get('ghost.manager.topic')->findTopic($id);
 
         if (!$topic) {
             throw $this->createNotFoundException('Unable to find Topic.');
         }
+        $this->get('ghost.manager.topic')->incrementViewsCount($topic);
 
-        $topicManager->incrementViewsCount($topic);
-
-        $postForm = $this->get('ghost.form_factory.post_new')->createForm($topic);
+        $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);
 
         return $this->render('GhostPostBundle:Topic:show.html.twig', array(
             'topic'     => $topic,
@@ -47,9 +45,8 @@ class TopicController extends Controller
 
     /**
      * Creates a new Topic.
-     *
      */
-    public function newAction(Request $request, $categoryAlias)
+    public function newAction($categoryAlias)
     {
         $category = $this->get('ghost.manager.category')->findCategoryByAlias($categoryAlias);
 
@@ -57,18 +54,11 @@ class TopicController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $topicManager = $this->getManager();
-        $form         = $this->get('ghost.form_factory.topic_new')->createForm($category);
+        $form        = $this->get('ghost.form.factory.topic_new')->createForm($category);
+        $formHandler = $this->get('ghost.form.handler.topic');
 
-        if ('POST' == $request->getMethod()) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $topic = $form->getData();
-                $topicManager->saveTopic($topic);
-
-                return $this->redirect($this->generateUrl('topic_show', array('id' => $topic->getId())));
-            }
+        if ($topic = $formHandler->process($form)) {
+            return $this->redirect($this->generateUrl('topic_show', array('id' => $topic->getId())));
         }
 
         return $this->render('GhostPostBundle:Topic:new.html.twig', array(
@@ -80,78 +70,24 @@ class TopicController extends Controller
     /**
      * Edit an existing Topic.
      */
-    public function editAction(Request $request, $id)
+    public function editAction($id)
     {
-        $topicManager = $this->getManager();
-        $topic        = $topicManager->findTopic($id);
+        $topic = $this->get('ghost.manager.topic')->findTopic($id);
 
         if (!$topic) {
             throw $this->createNotFoundException('Unable to find Topic.');
         }
 
-        $editForm   = $this->get('ghost.form_factory.topic_edit')->createForm($topic);
-        $deleteForm = $this->createDeleteForm($id);
+        $form        = $this->get('ghost.form.factory.topic_edit')->createForm($topic);
+        $formHandler = $this->get('ghost.form.handler.topic');
 
-        if ('POST' == $request->getMethod()) {
-            $editForm->bind($request);
-
-            if ($editForm->isValid()) {
-                $topicManager->saveTopic($topic);
-
-                return $this->redirect($this->generateUrl('topic_show', array('id' => $id)));
-            }
+        if ($formHandler->process($form)) {
+            return $this->redirect($this->generateUrl('topic_show', array('id' => $topic->getId())));
         }
 
         return $this->render('GhostPostBundle:Topic:edit.html.twig', array(
-            'topic'       => $topic,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView()
+            'topic' => $topic,
+            'form'  => $form->createView()
         ));
-    }
-
-    /**
-     * Deletes a Topic.
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $topicManager = $this->getManager();
-            $topic        = $topicManager->findTopic($id);
-
-            if (!$topic) {
-                throw $this->createNotFoundException('Unable to find Topic.');
-            }
-
-            $topicManager->deleteTopic($topic);
-        }
-
-        return $this->redirect($this->generateUrl('topic'));
-    }
-
-    /**
-     * Creates a delete form.
-     *
-     * @param integer $id topic id
-     *
-     * @return \Symfony\Component\Form\Form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm();
-    }
-
-    /**
-     *
-     *
-     * @return \Ghost\PostBundle\EntityManager\TopicManager
-     */
-    private function getManager()
-    {
-        return $this->get('ghost.manager.topic');
     }
 }

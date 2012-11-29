@@ -2,17 +2,17 @@
 namespace Ghost\UserBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use Ghost\UserBundle\Entity\User;
+use Ghost\UserBundle\ModelManager\UserManager as BaseUserManager;
+use Ghost\UserBundle\Model\UserInterface;
 
 /**
  * User Manager
  *
  * @author Wenming Tang <tang@babyfamily.com>
  */
-class UserManager
+class UserManager extends BaseUserManager
 {
     /**
      * @var EntityManager
@@ -48,19 +48,7 @@ class UserManager
     }
 
     /**
-     * @return string
-     */
-    public function createUser()
-    {
-        $user = new $this->class;
-
-        return $user;
-    }
-
-    /**
-     * @param array $criteria
-     *
-     * @return User
+     * {@inheritDoc}
      */
     public function findUserBy(array $criteria)
     {
@@ -68,9 +56,9 @@ class UserManager
     }
 
     /**
-     * @param User $user
+     * {@inheritDoc}
      */
-    public function saveUser(User $user)
+    public function saveUser(UserInterface $user)
     {
         $this->updatePassword($user);
 
@@ -79,7 +67,7 @@ class UserManager
     }
 
     /**
-     * @param UserInterface $user
+     * {@inheritDoc}
      */
     public function reloadUser(UserInterface $user)
     {
@@ -87,43 +75,9 @@ class UserManager
     }
 
     /**
-     * @param string $username
-     *
-     * @return User
+     * {@inheritDoc}
      */
-    public function findUserByUsername($username)
-    {
-        return $this->findUserBy(array('username' => $username));
-    }
-
-    /**
-     * @param string $email
-     *
-     * @return User
-     */
-    public function findUserByEmail($email)
-    {
-        return $this->findUserBy(array('email' => $email));
-    }
-
-    /**
-     * @param string $usernameOrEmail
-     *
-     * @return User
-     */
-    public function findUserByUsernameOrEmail($usernameOrEmail)
-    {
-        if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
-            return $this->findUserByEmail($usernameOrEmail);
-        }
-
-        return $this->findUserByUsername($usernameOrEmail);
-    }
-
-    /**
-     * @param User $user
-     */
-    public function updatePassword(User $user)
+    public function updatePassword(UserInterface $user)
     {
         if (0 !== strlen($password = $user->getPlainPassword())) {
             $encoder = $this->getEncoder($user);
@@ -133,11 +87,19 @@ class UserManager
     }
 
     /**
-     * @param User $user
+     * {@inheritDoc}
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * @param UserInterface $user
      *
      * @return PasswordEncoderInterface
      */
-    protected function getEncoder(User $user)
+    protected function getEncoder(UserInterface $user)
     {
         return $this->encoderFactory->getEncoder($user);
     }
