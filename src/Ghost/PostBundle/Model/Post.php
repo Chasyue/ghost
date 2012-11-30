@@ -89,7 +89,7 @@ abstract class Post implements PostInterface
      */
     public function isDeleted()
     {
-        return (boolean) $this->isDeleted;
+        return $this->isDeleted;
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class Post implements PostInterface
      */
     public function setCreated($created)
     {
-        $this->created = $created;
+        $this->created = (boolean) $created;
 
         return $this;
     }

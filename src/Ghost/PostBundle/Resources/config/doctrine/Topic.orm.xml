@@ -10,7 +10,7 @@
         <field name="body" type="text" column="body"/>
         <field name="viewsCount" type="integer" column="views_count"/>
         <field name="repliesCount" type="integer" column="replies_count"/>
-        <field name="isDeleted" type="smallint" column="is_deleted"/>
+        <field name="isDeleted" type="boolean" column="is_deleted"/>
         <field name="created" type="integer" column="created"/>
         <one-to-many field="posts" target-entity="Post" mapped-by="topic"/>
         <many-to-one field="user" target-entity="Ghost\UserBundle\Entity\User">

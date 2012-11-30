@@ -147,7 +147,7 @@ abstract class Topic implements TopicInterface
      */
     public function setIsDeleted($isDeleted)
     {
-        $this->isDeleted = $isDeleted;
+        $this->isDeleted = (boolean) $isDeleted;
 
         return $this;
     }
@@ -157,7 +157,7 @@ abstract class Topic implements TopicInterface
      */
     public function isDeleted()
     {
-        return (boolean) $this->isDeleted;
+        return $this->isDeleted;
     }
 
     /**
