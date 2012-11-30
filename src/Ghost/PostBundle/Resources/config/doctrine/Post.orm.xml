@@ -6,9 +6,9 @@
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="body" type="text" column="body" nullable="false"/>
-        <field name="isDeleted" type="smallint" column="is_deleted" nullable="false"/>
-        <field name="created" type="integer" column="created" nullable="false"/>
+        <field name="body" type="text" column="body"/>
+        <field name="isDeleted" type="smallint" column="is_deleted"/>
+        <field name="created" type="integer" column="created"/>
         <many-to-one field="user" target-entity="Ghost\UserBundle\Entity\User">
             <join-columns>
                 <join-column name="user_id" referenced-column-name="id"/>

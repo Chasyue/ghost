@@ -6,12 +6,12 @@
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="title" type="string" column="title" length="200" nullable="false"/>
-        <field name="body" type="text" column="body" nullable="false"/>
-        <field name="viewsCount" type="integer" column="views_count" nullable="false"/>
-        <field name="repliesCount" type="integer" column="replies_count" nullable="false"/>
-        <field name="isDeleted" type="smallint" column="is_deleted" nullable="false"/>
-        <field name="created" type="integer" column="created" nullable="false"/>
+        <field name="title" type="string" column="title" length="200"/>
+        <field name="body" type="text" column="body"/>
+        <field name="viewsCount" type="integer" column="views_count"/>
+        <field name="repliesCount" type="integer" column="replies_count"/>
+        <field name="isDeleted" type="smallint" column="is_deleted"/>
+        <field name="created" type="integer" column="created"/>
         <one-to-many field="posts" target-entity="Post" mapped-by="topic"/>
         <many-to-one field="user" target-entity="Ghost\UserBundle\Entity\User">
             <join-columns>
