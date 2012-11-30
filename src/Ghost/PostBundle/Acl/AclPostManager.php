@@ -46,7 +46,7 @@ class AclPostManager implements PostManagerInterface
     {
         $post = $this->realManager->findAllPosts();
 
-        if (!$this->postAcl->canView($post)) {
+        if (null != $post && !$this->postAcl->canView($post)) {
             throw new AccessDeniedException();
         }
 

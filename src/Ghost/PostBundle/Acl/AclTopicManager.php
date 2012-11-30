@@ -46,7 +46,7 @@ class AclTopicManager implements TopicManagerInterface
     {
         $topic = $this->realManager->findTopic($id);
 
-        if (!$this->topicAcl->canView($topic)) {
+        if (null != $topic && !$this->topicAcl->canView($topic)) {
             throw new AccessDeniedException();
         }
 
