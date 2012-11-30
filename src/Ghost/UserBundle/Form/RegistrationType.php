@@ -17,7 +17,7 @@ class RegistrationType extends AbstractType
             'first_options'   => array('label' => 'Password'),
             'second_options'  => array('label' => 'Confirm password'),
             'invalid_message' => 'Password does not match'
-        ))
+            ))
             ->add('name', 'text', array('label' => 'Full name'))
             ->add('email', 'email', array('label' => 'Email address'));
     }
@@ -26,7 +26,7 @@ class RegistrationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'       => 'Ghost\UserBundle\Entity\User',
-            'validation_group' => array('Registration')
+            'validation_groups' => array('Registration')
         ));
     }
 

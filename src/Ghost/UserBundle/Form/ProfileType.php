@@ -20,7 +20,7 @@ class ProfileType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'       => 'Ghost\UserBundle\Entity\User',
-            'validation_group' => array('Profile')
+            'validation_groups' => array('Profile')
         ));
     }
 

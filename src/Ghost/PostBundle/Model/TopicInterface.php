@@ -97,7 +97,7 @@ interface TopicInterface
      *
      * @return boolean
      */
-    public function getIsDeleted();
+    public function isDeleted();
 
     /**
      * Get created

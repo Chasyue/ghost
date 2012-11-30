@@ -40,7 +40,7 @@ interface PostInterface
      *
      * @return boolean
      */
-    public function getIsDeleted();
+    public function isDeleted();
 
     /**
      * Set created

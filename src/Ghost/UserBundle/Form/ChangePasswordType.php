@@ -36,7 +36,7 @@ class ChangePasswordType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'       => 'Ghost\UserBundle\FormModel\ChangePassword',
-            'validation_group' => array('ChangePassword')
+            'validation_groups' => array('ChangePassword')
         ));
     }
 

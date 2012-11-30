@@ -155,7 +155,7 @@ abstract class Topic implements TopicInterface
     /**
      * {@inheritDoc}
      */
-    public function getIsDeleted()
+    public function isDeleted()
     {
         return $this->isDeleted;
     }

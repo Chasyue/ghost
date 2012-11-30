@@ -87,7 +87,7 @@ abstract class Post implements PostInterface
     /**
      * {@inheritDoc}
      */
-    public function getIsDeleted()
+    public function isDeleted()
     {
         return $this->isDeleted;
     }
