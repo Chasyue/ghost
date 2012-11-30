@@ -7,7 +7,7 @@
             <generator strategy="IDENTITY"/>
         </id>
         <field name="body" type="text" column="body" nullable="false"/>
-        <field name="isDeleted" type="boolean" column="is_deleted" nullable="false"/>
+        <field name="isDeleted" type="smallint" column="is_deleted" nullable="false"/>
         <field name="created" type="integer" column="created" nullable="false"/>
         <many-to-one field="user" target-entity="Ghost\UserBundle\Entity\User">
             <join-columns>

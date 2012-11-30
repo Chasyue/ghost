@@ -89,7 +89,7 @@ abstract class Post implements PostInterface
      */
     public function isDeleted()
     {
-        return $this->isDeleted;
+        return (boolean) $this->isDeleted;
     }
 
     /**
