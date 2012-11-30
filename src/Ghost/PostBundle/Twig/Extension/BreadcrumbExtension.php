@@ -45,7 +45,7 @@ class BreadcrumbExtension extends \Twig_Extension
      */
     public function breadcrumbs()
     {
-        return $this->breadcrumb->getBreadcrumbs()->toArray();
+        return $this->breadcrumb->getBreadcrumbs();
     }
 
     /**

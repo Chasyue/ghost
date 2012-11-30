@@ -6,7 +6,7 @@
 
     <services>
         <service id="ghost.pager.twig" class="Ghost\PostBundle\Twig\Extension\PagerExtension">
-            <argument type="service" id="router" />
+            <argument type="service" id="service_container" />
             <tag name="twig.extension" />
         </service>
     </services>

@@ -2,6 +2,8 @@
 namespace Ghost\PostBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
+use Ghost\PostBundle\Pagination\ProxyQuery;
+use Ghost\PostBundle\Pagination\Pager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ghost\PostBundle\Model\TopicInterface;
@@ -53,9 +55,18 @@ class TopicManager extends BaseTopicManager
     /**
      * {@inheritDoc}
      */
-    public function findAllTopic()
+    public function findAllTopic($page = 1)
     {
-        return $this->repository->findBy(array('isDeleted' => 0));
+        $qb = $this->repository->createQueryBuilder('t')
+            ->select('t, c, u')
+            ->join('t.category', 'c')
+            ->join('t.user', 'u')
+            ->where('t.isDeleted = 0');
+
+        $pager = new Pager(new ProxyQuery($qb));
+        $pager->setPage($page);
+
+        return $pager;
     }
 
     /**

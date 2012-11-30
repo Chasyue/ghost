@@ -1,7 +1,7 @@
 <?php
 namespace Ghost\PostBundle\Twig\Extension;
 
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\DependencyInjection\Container;
 use Ghost\PostBundle\Pagination\Pager;
 
 /**
@@ -10,29 +10,16 @@ use Ghost\PostBundle\Pagination\Pager;
 class PagerExtension extends \Twig_Extension
 {
     /**
-     * @var RouterInterface
+     * @var Container
      */
-    protected $router;
+    protected $container;
 
     /**
-     * @var \Twig_Environment
+     * @param Container $container
      */
-    protected $environment;
-
-    /**
-     * @param RouterInterface $router
-     */
-    public function __construct(RouterInterface $router)
+    public function __construct(Container $container)
     {
-        $this->router = $router;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->environment = $environment;
+        $this->container = $container;
     }
 
     /**
@@ -55,7 +42,7 @@ class PagerExtension extends \Twig_Extension
      */
     public function paginate(Pager $pager, $route, array $parameters = array())
     {
-        return $this->environment->render('GhostPostBundle:Pager:pagination.html.twig', array(
+        return $this->container->get('templating')->render('GhostPostBundle:Pager:pagination.html.twig', array(
             'pager'      => $pager,
             'route'      => $route,
             'parameters' => $parameters
@@ -79,7 +66,7 @@ class PagerExtension extends \Twig_Extension
             $parameters['page'] = $page;
         }
 
-        return $this->router->generate($route, $parameters);
+        return $this->container->get('router')->generate($route, $parameters);
     }
 
     /**

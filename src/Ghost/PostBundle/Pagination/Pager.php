@@ -33,23 +33,10 @@ class Pager
      * Constructor
      *
      * @param ProxyQuery      $proxyQuery
-     * @param array           $options Additional options
      */
-    public function __construct(ProxyQuery $proxyQuery, array $options = array())
+    public function __construct(ProxyQuery $proxyQuery)
     {
         $this->proxyQuery = $proxyQuery;
-
-        if (isset($options['limit'])) {
-            $this->setLimit($options['limit']);
-        }
-
-        if (isset($options['page'])) {
-            $this->setPage($options['page']);
-        }
-
-        if (isset($options['max_pages'])) {
-            $this->setMaxPages($options['max_pages']);
-        }
     }
 
     /**

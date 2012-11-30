@@ -16,10 +16,10 @@ class TopicController extends Controller
      */
     public function indexAction()
     {
-        $topics = $this->get('ghost.manager.topic')->findAllTopic();
+        $pager = $this->get('ghost.manager.topic')->findAllTopic($this->getRequest()->get('page', 1));
 
         return $this->render('GhostPostBundle:Topic:index.html.twig', array(
-            'topics' => $topics,
+            'pager' => $pager,
         ));
     }
 
@@ -28,13 +28,14 @@ class TopicController extends Controller
      */
     public function showAction($id)
     {
-        $this->get('ghost.breadcrumb')->add('category')->add('topic');
-
         $topic = $this->get('ghost.manager.topic')->findTopic($id);
 
         if (!$topic) {
             throw $this->createNotFoundException('Unable to find Topic.');
         }
+
+        $this->get('ghost.breadcrumb')->add($topic->getCategory()->getName());
+
         $this->get('ghost.manager.topic')->incrementViewsCount($topic);
 
         $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);

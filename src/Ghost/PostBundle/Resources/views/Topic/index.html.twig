@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for topic in topics %}
+    {% for topic in pager.getResults %}
         <tr>
             <td><a href="{{ path('topic_show', { 'id': topic.id }) }}">{{ topic.title }}</a></td>
             <td>{{ topic.body }}</td>
@@ -37,6 +37,10 @@
     {% endfor %}
     </tbody>
 </table>
+
+{% if pager.isPaginable %}
+{{ paginate(pager, 'topic') }}
+{% endif %}
 
 <ul>
     <li>

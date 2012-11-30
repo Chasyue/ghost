@@ -1,8 +1,6 @@
 <?php
 namespace Ghost\PostBundle\Breadcrumb;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
@@ -12,13 +10,13 @@ class Breadcrumb
 
     public function  __construct()
     {
-        $this->breadcrumbs = new ArrayCollection();
+        $this->breadcrumbs = array();
         $this->add('home', '/');
     }
 
     public function add($text, $url = '')
     {
-        $this->breadcrumbs->add(new Crumb($text, $url));
+        $this->breadcrumbs[] = new Crumb($text, $url);
 
         return $this;
     }
