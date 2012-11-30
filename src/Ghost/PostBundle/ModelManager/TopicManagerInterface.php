@@ -22,17 +22,24 @@ interface TopicManagerInterface
     public function findTopic($id);
 
     /**
-     * @param integer $page
      * @return array of topic
      */
-    public function findAllTopic($page = 1);
+    public function findAllTopics();
 
     /**
-     * @param CategoryInterface $category
+     * @param integer $page
      *
      * @return array of topic
      */
-    public function findTopicByCategory(CategoryInterface $category);
+    public function findTopics($page = 1);
+
+    /**
+     * @param CategoryInterface $category
+     * @param integer $page
+     *
+     * @return array of topic
+     */
+    public function findTopicsByCategory(CategoryInterface $category, $page = 1);
 
     /**
      * @param TopicInterface $topic

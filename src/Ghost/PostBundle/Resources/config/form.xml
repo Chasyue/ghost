@@ -34,13 +34,13 @@
         <service id="ghost.form.handler.topic" class="Ghost\PostBundle\FormHandler\TopicFormHandler"
                  scope="request">
             <argument type="service" id="request"/>
-            <argument type="service" id="ghost.manager.topic"/>
+            <argument type="service" id="ghost.manager.topic.acl"/>
         </service>
 
         <service id="ghost.form.handler.post" class="Ghost\PostBundle\FormHandler\PostFormHandler"
                  scope="request">
             <argument type="service" id="request"/>
-            <argument type="service" id="ghost.manager.post"/>
+            <argument type="service" id="ghost.manager.post.acl"/>
         </service>
     </services>
 </container>

@@ -2,6 +2,7 @@
 namespace Ghost\PostBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -16,7 +17,7 @@ class TopicController extends Controller
      */
     public function indexAction()
     {
-        $pager = $this->get('ghost.manager.topic')->findAllTopic($this->getRequest()->get('page', 1));
+        $pager = $this->get('ghost.manager.topic.acl')->findTopics($this->getRequest()->get('page', 1));
 
         return $this->render('GhostPostBundle:Topic:index.html.twig', array(
             'pager' => $pager,
@@ -28,7 +29,7 @@ class TopicController extends Controller
      */
     public function showAction($id)
     {
-        $topic = $this->get('ghost.manager.topic')->findTopic($id);
+        $topic = $this->get('ghost.manager.topic.acl')->findTopic($id);
 
         if (!$topic) {
             throw $this->createNotFoundException('Unable to find Topic.');
@@ -36,7 +37,7 @@ class TopicController extends Controller
 
         $this->get('ghost.breadcrumb')->add($topic->getCategory()->getName());
 
-        $this->get('ghost.manager.topic')->incrementViewsCount($topic);
+        $this->get('ghost.manager.topic.acl')->incrementViewsCount($topic);
 
         $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);
 
@@ -51,7 +52,7 @@ class TopicController extends Controller
      */
     public function newAction($categoryAlias)
     {
-        $category = $this->get('ghost.manager.category')->findCategoryByAlias($categoryAlias);
+        $category = $this->get('ghost.manager.category.default')->findCategoryByAlias($categoryAlias);
 
         if (!$category) {
             throw $this->createNotFoundException();
@@ -75,10 +76,14 @@ class TopicController extends Controller
      */
     public function editAction($id)
     {
-        $topic = $this->get('ghost.manager.topic')->findTopic($id);
+        $topic = $this->get('ghost.manager.topic.acl')->findTopic($id);
 
         if (!$topic) {
             throw $this->createNotFoundException('Unable to find Topic.');
+        }
+
+        if (!$this->get('ghost.acl.topic')->canEdit($topic)) {
+            throw new AccessDeniedException();
         }
 
         $form        = $this->get('ghost.form.factory.topic_edit')->createForm($topic);

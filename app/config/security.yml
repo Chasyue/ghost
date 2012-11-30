@@ -2,6 +2,7 @@ jms_security_extra:
     secure_all_services: false
     expressions: true
 
+
 security:
     encoders:
         Ghost\UserBundle\Entity\User: sha512
@@ -13,6 +14,9 @@ security:
     providers:
         ghost_user:
             entity: { class: Ghost\UserBundle\Entity\User, property: username }
+
+    acl:
+        connection: default
 
     firewalls:
         dev:

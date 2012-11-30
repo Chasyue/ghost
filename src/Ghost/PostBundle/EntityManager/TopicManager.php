@@ -55,7 +55,21 @@ class TopicManager extends BaseTopicManager
     /**
      * {@inheritDoc}
      */
-    public function findAllTopic($page = 1)
+    public function findAllTopics()
+    {
+        $qb = $this->repository->createQueryBuilder('t')
+            ->select('t, c, u')
+            ->join('t.category', 'c')
+            ->join('t.user', 'u')
+            ->where('t.isDeleted = 0');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findTopics($page = 1)
     {
         $qb = $this->repository->createQueryBuilder('t')
             ->select('t, c, u')
@@ -72,7 +86,7 @@ class TopicManager extends BaseTopicManager
     /**
      * {@inheritDoc}
      */
-    public function findTopicByCategory(CategoryInterface $category)
+    public function findTopicsByCategory(CategoryInterface $category, $page = 0)
     {
         $qb = $this->repository->createQueryBuilder('t')
             ->select('t, c, u')
@@ -82,9 +96,10 @@ class TopicManager extends BaseTopicManager
             ->andWhere('t.isDeleted = 0')
             ->setParameter('category', $category->getId());
 
-        $query = $qb->getQuery();
+        $pager = new Pager(new ProxyQuery($qb));
+        $pager->setPage($page);
 
-        return $query->getResult();
+        return $pager;
     }
 
     /**

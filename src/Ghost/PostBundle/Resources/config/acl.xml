@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="ghost.acl.topic" class="Ghost\PostBundle\Acl\TopicAcl">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.provider" />
+            <argument>%ghost.entity.topic.class%</argument>
+        </service>
+
+        <service id="ghost.acl.post" class="Ghost\PostBundle\Acl\PostAcl">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.provider" />
+            <argument>%ghost.entity.post.class%</argument>
+        </service>
+
+        <service id="ghost.manager.topic.acl" class="Ghost\PostBundle\Acl\AclTopicManager">
+            <argument type="service" id="ghost.manager.topic.default" />
+            <argument type="service" id="ghost.acl.topic" />
+        </service>
+
+        <service id="ghost.manager.post.acl" class="Ghost\PostBundle\Acl\AclPostManager">
+            <argument type="service" id="ghost.manager.post.default" />
+            <argument type="service" id="ghost.acl.post" />
+        </service>
+    </services>
+</container>

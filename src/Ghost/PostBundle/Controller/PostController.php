@@ -2,6 +2,7 @@
 namespace Ghost\PostBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -16,7 +17,7 @@ class PostController extends Controller
      */
     public function newAction($topicId)
     {
-        $topic = $this->get('ghost.manager.topic')->findTopic($topicId);
+        $topic = $this->get('ghost.manager.topic.acl')->findTopic($topicId);
 
         if (!$topic) {
             throw $this->createNotFoundException();
@@ -40,10 +41,14 @@ class PostController extends Controller
      */
     public function editAction($id)
     {
-        $post = $this->get('ghost.manager.post')->findPost($id);
+        $post = $this->get('ghost.manager.post.acl')->findPost($id);
 
         if (!$post) {
             throw $this->createNotFoundException('Unable to find Post.');
+        }
+
+        if (!$this->get('ghost.acl.post')->canEdit($post)) {
+            throw new AccessDeniedException();
         }
 
         $form        = $this->get('ghost.form.factory.post_edit')->createForm($post);

@@ -53,7 +53,15 @@ class PostManager extends BasePostManager
     /**
      * {@inheritDoc}
      */
-    public function findPostByTopic(TopicInterface $topic)
+    public function findAllPosts()
+    {
+        return $this->repository->findAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findPostsByTopic(TopicInterface $topic)
     {
         $qb = $this->repository->createQueryBuilder('p')
             ->select('p, t, u')

@@ -22,11 +22,16 @@ interface PostManagerInterface
     public function findPost($id);
 
     /**
+     * @return array of post
+     */
+    public function findAllPosts();
+
+    /**
      * @param TopicInterface $topic
      *
      * @return array of post
      */
-    public function findPostByTopic(TopicInterface $topic);
+    public function findPostsByTopic(TopicInterface $topic);
 
     /**
      * @param PostInterface $post
