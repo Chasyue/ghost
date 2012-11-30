@@ -1,6 +1,5 @@
 .DS_Store
 .idea/*
-composer.lock
 /web/bundles/
 /app/config/parameters.yml
 /app/bootstrap*
