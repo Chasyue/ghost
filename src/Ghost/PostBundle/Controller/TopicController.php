@@ -36,7 +36,6 @@ class TopicController extends Controller
         }
 
         $this->get('ghost.breadcrumb')->add($topic->getCategory()->getName());
-
         $this->get('ghost.manager.topic.acl')->incrementViewsCount($topic);
 
         $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);
