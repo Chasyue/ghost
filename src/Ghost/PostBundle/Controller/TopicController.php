@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Topic controller.
+ * Topic controller
  *
  * @author Wenming Tang <tang@babyfamily.com>
  */
