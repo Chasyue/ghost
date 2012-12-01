@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class TopicController extends Controller
 {
     /**
-     * Lists all Topic.
+     * Lists all Topic
      */
     public function indexAction()
     {
@@ -25,7 +25,7 @@ class TopicController extends Controller
     }
 
     /**
-     * Finds and displays a Topic.
+     * Finds and displays a Topic
      */
     public function showAction($id)
     {
@@ -47,7 +47,7 @@ class TopicController extends Controller
     }
 
     /**
-     * Creates a new Topic.
+     * Creates a new Topic
      */
     public function newAction($categoryAlias)
     {
@@ -71,7 +71,7 @@ class TopicController extends Controller
     }
 
     /**
-     * Edit an existing Topic.
+     * Edit an existing Topic
      */
     public function editAction($id)
     {

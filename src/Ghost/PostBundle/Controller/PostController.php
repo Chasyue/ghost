@@ -6,14 +6,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Post controller.
+ * Post controller
  *
  * @author Wenming Tang <tang@babyfamily.com>
  */
 class PostController extends Controller
 {
     /**
-     * Creates a new Post.
+     * Creates a new Post
      */
     public function newAction($topicId)
     {
@@ -37,7 +37,7 @@ class PostController extends Controller
     }
 
     /**
-     * Edit an existing Post.
+     * Edit an existing Post
      */
     public function editAction($id)
     {
