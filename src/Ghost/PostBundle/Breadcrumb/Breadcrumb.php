@@ -11,7 +11,7 @@ class Breadcrumb
     public function  __construct()
     {
         $this->breadcrumbs = array();
-        $this->add('home', '/');
+        $this->add('Home', '/');
     }
 
     public function add($text, $url = '')

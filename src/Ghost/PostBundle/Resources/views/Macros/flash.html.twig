@@ -1,0 +1,12 @@
+{% macro flash(type, message, close, use_raw, class, domain) %}
+    <div class="alert{{ type ? ' alert-'~type : '' }} fade in {{ class|default('') }}">
+        {% if close|default(false) %}
+            <a class="close" data-dismiss="alert" href="#">×</a>
+        {% endif %}
+        {% if use_raw|default(false) %}
+            {{ message|raw }}
+        {% else %}
+            {{ message }}
+        {% endif %}
+    </div>
+{% endmacro %}

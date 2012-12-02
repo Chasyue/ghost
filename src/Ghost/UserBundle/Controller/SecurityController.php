@@ -12,6 +12,8 @@ class SecurityController extends Controller
 {
     public function loginAction()
     {
+        $this->get('ghost.breadcrumb')->add('Sign In');
+
         $request = $this->getRequest();
         $session = $request->getSession();
 
@@ -27,11 +29,11 @@ class SecurityController extends Controller
         }
 
         if ($error) {
-            $error = $error->getMessage();
+            $this->get('session')->getFlashBag()->add('error', $error->getMessage());
         }
 
         $lastUsername = $session->get(SecurityContext::LAST_USERNAME);
 
-        return $this->render('GhostUserBundle:Security:login.html.twig', array('error' => $error, 'last_username' => $lastUsername));
+        return $this->render('GhostUserBundle:Security:login.html.twig', array('last_username' => $lastUsername));
     }
 }

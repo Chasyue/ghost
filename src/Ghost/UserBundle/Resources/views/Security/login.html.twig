@@ -1,33 +1,35 @@
-{{ error }}
+{% extends 'GhostUserBundle::layout.html.twig' %}
 
-<form action="{{ path("security_login_check") }}" method="post" class="form-horizontal">
-    <fieldset>
-        <legend>登录</legend>
+{% block user_body %}
+    <div class="well-header">
+        <h2>Sign In</h2>
+    </div>
+    <div class="well-body">
+        <form class="form-horizontal" action="{{ path("security_login_check") }}" method="post">
 
-        <div class="control-group">
-            <label for="username" class="control-label">Username</label>
+            <div class="control-group">
+                <label class="control-label">Username</label>
 
-            <div class="controls">
-                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
+                <div class="controls">
+                    <input type="text" class="input-large" id="username" name="_username" value="{{ last_username }}" required="required"/>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <label for="password" class="control-label">Password</label>
+            <div class="control-group">
+                <label class="control-label">Password</label>
 
-            <div class="controls"><input type="password" id="password" name="_password" required="required"/></div>
-        </div>
+                <div class="controls">
+                    <input type="password" class="input-large" id="password" name="_password" required="required"/>
+                </div>
+            </div>
 
-        <div class="control-group">
-            <label class="control-label"></label>
-
-            <div class="controls">
-                <label for="remember_me" class="checkbox"><input type="checkbox" id="remember_me" name="_remember_me" value="on"/> Remember me
-                </label></div>
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-    </fieldset>
-</form>
+            <div class="control-group">
+                <div class="controls">
+                    <label for="remember_me" class="checkbox"><input type="checkbox" id="remember_me" name="_remember_me" value="on"/> Remember me
+                    </label>
+                    <button class="btn btn-success" type="submit">Sign In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

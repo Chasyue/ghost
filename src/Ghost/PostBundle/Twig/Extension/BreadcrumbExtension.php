@@ -36,7 +36,9 @@ class BreadcrumbExtension extends \Twig_Extension
     {
         return array(
             'breadcrumbs'        => new \Twig_Function_Method($this, 'breadcrumbs', array("is_safe" => array("html"))),
-            'render_breadcrumbs' => new \Twig_Function_Method($this, 'renderBreadcrumbs', array("is_safe" => array("html")))
+            'render_breadcrumbs' => new \Twig_Function_Method($this, 'renderBreadcrumbs', array("is_safe" => array("html"))),
+            'page_title'         => new \Twig_Function_Method($this, 'pageTitle', array("is_safe" => array("html")))
+
         );
     }
 
@@ -56,6 +58,17 @@ class BreadcrumbExtension extends \Twig_Extension
         return $this->container->get('templating')->render('GhostPostBundle:Breadcrumb:breadcrumb.html.twig', array(
             'breadcrumbs' => $this->breadcrumbs()
         ));
+    }
+
+    /**
+     * @return array
+     */
+    public function pageTitle()
+    {
+        $breadcrumbs = $this->breadcrumbs();
+        $last_crumb  = end($breadcrumbs);
+
+        return $last_crumb->getText();
     }
 
     /**

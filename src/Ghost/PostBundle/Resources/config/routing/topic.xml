@@ -8,7 +8,7 @@
         <default key="_controller">GhostPostBundle:Topic:index</default>
     </route>
 
-    <route id="topic_show" pattern="/{id}/show">
+    <route id="topic_show" pattern="/{id}">
         <default key="_controller">GhostPostBundle:Topic:show</default>
     </route>
 

@@ -1,5 +1,5 @@
-<div id="pagination" class="pagination">
-    <ul class="pull-right">
+<div class="pagination pull-right">
+    <ul>
         {% if pager.isFirstPage == false %}
             <li><a href="{{ paginate_path(route, pager.getPreviousPage, parameters) }}">Prev</a></li>
         {% endif %}
