@@ -83,7 +83,7 @@ class TopicAcl implements TopicAclInterface
      */
     public function canEdit(TopicInterface $topic)
     {
-        return $this->securityContext->isGranted('EDIT', $topic);
+        return $this->securityContext->isGranted('EDIT', $topic) && (time() - $topic->getCreated() <= 1800);
     }
 
     /**
@@ -92,6 +92,14 @@ class TopicAcl implements TopicAclInterface
     public function canDelete(TopicInterface $topic)
     {
         return $this->securityContext->isGranted('DELETE', $topic);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function canReply(TopicInterface $topic)
+    {
+        return $this->canView($topic) && $topic->isDeleted() == false;
     }
 
     /**

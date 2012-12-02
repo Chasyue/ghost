@@ -37,6 +37,13 @@ interface TopicAclInterface
     /**
      * @param TopicInterface $topic
      *
+     * @return boolean
+     */
+    public function canReply(TopicInterface $topic);
+
+    /**
+     * @param TopicInterface $topic
+     *
      * @return void
      */
     public function setDefaultAcl(TopicInterface $topic);
