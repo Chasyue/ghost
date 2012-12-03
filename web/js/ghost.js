@@ -33,4 +33,8 @@ $(document).ready(function(){
         var name = $(this).data('name');
         reply(name);
     });
+
+    $('form').submit(function(){
+        $(this).find('.btn').attr('disabled', true).addClass('disabled');
+    });
 });
