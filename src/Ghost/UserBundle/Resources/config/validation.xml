@@ -79,7 +79,6 @@
             <constraint name="NotBlank">
                 <option name="message">Please enter a name</option>
                 <option name="groups">
-                    <value>Registration</value>
                     <value>Profile</value>
                 </option>
             </constraint>
