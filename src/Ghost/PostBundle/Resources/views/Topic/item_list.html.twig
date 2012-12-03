@@ -16,5 +16,8 @@
             <a href="{{ path('topic_by_category', {'categoryAlias': item.category.alias}) }}" class="category">{{ item.category.name }}</a> •
         {% endif %}
          <a href="{{ path('user_show', {'username': item.user.username}) }}">{{ item.user.username }}</a> • posted {{ item.created|time_ago }}
+        {% if item.lastPoster %}
+        • last reply by <a href="{{ path('user_show', {'username': item.lastPoster}) }}">{{ item.lastPoster }}</a>
+        {% endif %}
     </p>
 </li>

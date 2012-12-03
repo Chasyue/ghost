@@ -32,7 +32,7 @@ class PostController extends Controller
         $formHandler = $this->get('ghost.form.handler.post');
 
         if ($formHandler->process($form)) {
-            return $this->redirect($this->generateUrl('topic_show', array('id' => $topic->getId())));
+            return $this->redirect($this->generateUrl('topic_show', array('id' => $topic->getId())) . '#reply' . $topic->getRepliesCount());
         }
 
         return $this->render('GhostPostBundle:Post:new.html.twig', array(
