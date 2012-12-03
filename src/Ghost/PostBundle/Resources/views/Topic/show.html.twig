@@ -19,7 +19,7 @@
                 <i class="icon-eye-open"></i> {{ topic.viewsCount }} views /
                 <i class="icon-comment"></i> {{ topic.repliesCount }} replies /
                 <i class="icon-time"></i> {{ topic.created|time_ago }} / by
-                <a href="{{ path('user_show', {'name': topic.user.name}) }}">{{ topic.user.name }}</a>
+                <a href="{{ path('user_show', {'username': topic.user.username}) }}">{{ topic.user.username }}</a>
                 {% if can_edit_topic(topic) %}
                     <i class="icon-edit"></i> <a href="{{ path('topic_edit', {'id': topic.id}) }}">Edit</a>
                 {% endif %}
@@ -46,8 +46,8 @@
                                 <span class="pull-right"><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">Edit</a></span>
                             {% endif %}
                             {% if can_create_post() %}
-                            <span class="pull-right"><i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.name }}" class="reply-action">reply</a></span>{% endif %}
-                            by <a href="{{ path('user_show', {'name': post.user.name}) }}">{{ post.user.name }}</a> /
+                            <span class="pull-right"><i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.username }}" class="reply-action">reply</a></span>{% endif %}
+                            by <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> /
                              posted {{ post.created|time_ago }}
                         </p>
 

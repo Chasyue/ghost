@@ -21,7 +21,7 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $this->get('ghost.breadcrumb')->add('@' . $user->getName());
+        $this->get('ghost.breadcrumb')->add('@' . $user->getUsername());
 
         $form        = $this->get('ghost.form.profile');
         $formHandler = $this->get('ghost.form.handler.profile');
@@ -36,15 +36,15 @@ class ProfileController extends Controller
         ));
     }
 
-    public function showAction($name)
+    public function showAction($username)
     {
-        $user = $this->get('ghost.manager.user')->findUserByName($name);
+        $user = $this->get('ghost.manager.user')->findUserByUsername($username);
 
         if (!$user) {
             throw $this->createNotFoundException();
         }
 
-        $this->get('ghost.breadcrumb')->add('@' . $user->getName());
+        $this->get('ghost.breadcrumb')->add('@' . $user->getUsername());
 
         return $this->render('GhostUserBundle:Profile:show.html.twig', array(
             'user' => $user

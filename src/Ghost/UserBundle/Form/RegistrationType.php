@@ -1,5 +1,4 @@
 <?php
-
 namespace Ghost\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -18,7 +17,6 @@ class RegistrationType extends AbstractType
             'second_options'  => array('label' => 'Confirm password'),
             'invalid_message' => 'Password mismatch'
             ))
-            ->add('name', 'text', array('label' => 'Full name'))
             ->add('email', 'email', array('label' => 'Email address'));
     }
 

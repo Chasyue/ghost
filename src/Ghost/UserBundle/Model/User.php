@@ -134,7 +134,7 @@ abstract class User implements UserInterface
      */
     public function getName()
     {
-        return $this->name;
+        return $this->name ? $this->name : $this->getUsername();
     }
 
     /**

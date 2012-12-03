@@ -1,6 +1,6 @@
 <li class="clearfix">
     <div class="avatar pull-left">
-        <a href="{{ path('user_show', {'name': item.user.name}) }}"><img width="48" height="48" src="{{ gravatar(item.user.email) }}"/></a>
+        <a href="{{ path('user_show', {'username': item.user.username}) }}"><img width="48" height="48" src="{{ gravatar(item.user.email) }}"/></a>
     </div>
     {% if item.repliesCount %}
         <div class="replies pull-right">
@@ -15,6 +15,6 @@
         {% if category is not defined %}
             <a href="{{ path('topic_by_category', {'categoryAlias': item.category.alias}) }}" class="category">{{ item.category.name }}</a> •
         {% endif %}
-         <a href="{{ path('user_show', {'name': item.user.name}) }}">{{ item.user.name }}</a> • posted {{ item.created|time_ago }}
+         <a href="{{ path('user_show', {'username': item.user.username}) }}">{{ item.user.username }}</a> • posted {{ item.created|time_ago }}
     </p>
 </li>

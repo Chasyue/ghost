@@ -21,7 +21,7 @@ class ChangePasswordController extends Controller
         }
 
         $this->get('ghost.breadcrumb')
-            ->add('@' . $user->getName())
+            ->add('@' . $user->getUsername())
             ->add('Change Password');
 
         $form        = $this->get('ghost.form.change_password');
