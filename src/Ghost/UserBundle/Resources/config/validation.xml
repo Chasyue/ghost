@@ -27,7 +27,6 @@
             <option name="fields">name</option>
             <option name="message">This name already exists.</option>
             <option name="groups">
-                <value>Registration</value>
                 <value>Profile</value>
             </option>
         </constraint>
