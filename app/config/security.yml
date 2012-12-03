@@ -23,17 +23,13 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        login:
-            pattern:  ^/user/login$
-            security: false
-
         secured_area:
             pattern:    ^/
             form_login:
-                check_path: /user/login_check
-                login_path: /user/login
+                check_path: /login_check
+                login_path: /login
             logout:
-                path:   /user/logout
+                path:   /logout
                 target: /
             anonymous: true
 

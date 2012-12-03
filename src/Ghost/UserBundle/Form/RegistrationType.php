@@ -16,7 +16,7 @@ class RegistrationType extends AbstractType
             'type'            => 'password',
             'first_options'   => array('label' => 'Password'),
             'second_options'  => array('label' => 'Confirm password'),
-            'invalid_message' => 'Password does not match'
+            'invalid_message' => 'Password mismatch'
             ))
             ->add('name', 'text', array('label' => 'Full name'))
             ->add('email', 'email', array('label' => 'Email address'));

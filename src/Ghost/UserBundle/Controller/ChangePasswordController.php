@@ -20,6 +20,10 @@ class ChangePasswordController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
+        $this->get('ghost.breadcrumb')
+            ->add('@' . $user->getName())
+            ->add('Change Password');
+
         $form        = $this->get('ghost.form.change_password');
         $formHandler = $this->get('ghost.form.handler.change_password');
 

@@ -23,7 +23,7 @@ interface TopicInterface
      *
      * @param string $title
      *
-     * @return Topic
+     * @return self
      */
     public function setTitle($title);
 
@@ -39,7 +39,7 @@ interface TopicInterface
      *
      * @param string $body
      *
-     * @return Topic
+     * @return self
      */
     public function setBody($body);
 
@@ -56,7 +56,7 @@ interface TopicInterface
      *
      * @param integer $by
      *
-     * @return Topic
+     * @return self
      */
     public function incrementViewsCount($by = 1);
 
@@ -72,7 +72,7 @@ interface TopicInterface
      *
      * @param integer $by
      *
-     * @return Topic
+     * @return self
      */
     public function incrementRepliesCount($by = 1);
 
@@ -88,7 +88,7 @@ interface TopicInterface
      *
      * @param boolean $isDeleted
      *
-     * @return Topic
+     * @return self
      */
     public function setIsDeleted($isDeleted);
 
@@ -111,7 +111,7 @@ interface TopicInterface
      *
      * @param Post $posts
      *
-     * @return Topic
+     * @return self
      */
     public function addPost(Post $posts);
 
@@ -134,7 +134,7 @@ interface TopicInterface
      *
      * @param User $user
      *
-     * @return Topic
+     * @return self
      */
     public function setUser(User $user = null);
 
@@ -150,7 +150,7 @@ interface TopicInterface
      *
      * @param Category $category
      *
-     * @return Topic
+     * @return self
      */
     public function setCategory(Category $category = null);
 
@@ -160,4 +160,28 @@ interface TopicInterface
      * @return Category
      */
     public function getCategory();
+
+    /**
+     * @param integer $lastUpdated
+     *
+     * @return self
+     */
+    public function setLastUpdated($lastUpdated);
+
+    /**
+     * @return integer
+     */
+    public function getLastUpdated();
+
+    /**
+     * @param string $lastPoster
+     *
+     * @return self
+     */
+    public function setLastPoster($lastPoster);
+
+    /**
+     * @return string
+     */
+    public function getLastPoster();
 }

@@ -23,6 +23,11 @@ class PostController extends Controller
             throw $this->createNotFoundException();
         }
 
+        $this->get('ghost.breadcrumb')
+            ->add($topic->getCategory()->getName(), $this->generateUrl('topic_by_category', array('categoryAlias' => $topic->getCategory()->getAlias())))
+            ->add($topic->getTitle(), $this->generateUrl('topic_show', array('id' => $topic->getId())))
+            ->add('Reply to this topic');
+
         $form        = $this->get('ghost.form.factory.post_new')->createForm($topic);
         $formHandler = $this->get('ghost.form.handler.post');
 
@@ -46,6 +51,11 @@ class PostController extends Controller
         if (!$post) {
             throw $this->createNotFoundException('Unable to find Post.');
         }
+
+        $this->get('ghost.breadcrumb')
+            ->add($post->getTopic()->getCategory()->getName(), $this->generateUrl('topic_by_category', array('categoryAlias' => $post->getTopic()->getCategory()->getAlias())))
+            ->add($post->getTopic()->getTitle(), $this->generateUrl('topic_show', array('id' => $post->getTopic()->getId())))
+            ->add('Edit the reply');
 
         if (!$this->get('ghost.acl.post')->canEdit($post)) {
             throw new AccessDeniedException();

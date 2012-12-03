@@ -38,6 +38,14 @@ abstract class UserManager implements UserManagerInterface
     /**
      * {@inheritDoc}
      */
+    public function findUserByName($name)
+    {
+        return $this->findUserBy(array('name' => $name));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function findUserByUsernameOrEmail($usernameOrEmail)
     {
         if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {

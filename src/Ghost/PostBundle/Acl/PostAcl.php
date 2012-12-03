@@ -83,7 +83,7 @@ class PostAcl implements PostAclInterface
      */
     public function canEdit(PostInterface $post)
     {
-        return $this->securityContext->isGranted('EDIT', $post);
+        return $this->securityContext->isGranted('EDIT', $post) && (time() - $post->getCreated() <= 1800);
     }
 
     /**

@@ -1,5 +1,12 @@
 {% extends 'GhostPostBundle::layout.html.twig' %}
 
+{% block sidebar %}
+    <div class="well text-align-center">
+        <a href="{{ path('topic_new', {'categoryAlias': category.alias}) }}"><i class="icon-plus"></i> Post a New Topic</a>
+    </div>
+    {{ parent() }}
+{% endblock %}
+
 {% block body %}
     <div class="well well-small clearfix topics">
         <div class="well-header">
@@ -8,24 +15,12 @@
 
         <ul class="item-list unstyled">
             {% for item in pager.getResults %}
-                <li class="clearfix">
-                    <div class="avatar pull-left">
-                        <a href="member.html"><img src="http://l.ruby-china.org/user/normal_avatar/983.jpg"/></a>
-                    </div>
-                    <div class="replies pull-right">
-                        <a class="badge" href="{{ path('topic_show', { 'id': item.id }) }}#{{ item.repliesCount }}">{{ item.repliesCount }}</a>
-                    </div>
-                    <h3><a href="{{ path('topic_show', { 'id': item.id }) }}">{{ item.title }}</a></h3>
-
-                    <p class="muted">
-                        <i class="icon-comment"></i> {{ item.repliesCount }} replies / <i class="icon-time"></i> 9h ago / by
-                        <a href="member.html">tom</a></p>
-                </li>
+                {% include 'GhostPostBundle:Topic:item_list.html.twig' %}
             {% endfor %}
         </ul>
 
         {% if pager.isPaginable %}
-            {{ paginate(pager, 'topic') }}
+            {{ paginate(pager, 'topic_by_category', {'categoryAlias': category.alias}) }}
         {% endif %}
     </div>
 {% endblock %}

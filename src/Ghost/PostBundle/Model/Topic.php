@@ -47,6 +47,16 @@ abstract class Topic implements TopicInterface
     protected $created;
 
     /**
+     * @var integer
+     */
+    protected $lastUpdated;
+
+    /**
+     * @var string
+     */
+    protected $lastPoster;
+
+    /**
      * @var ArrayCollection
      */
     protected $posts;
@@ -66,8 +76,9 @@ abstract class Topic implements TopicInterface
      */
     public function __construct()
     {
-        $this->posts   = new ArrayCollection();
-        $this->created = time();
+        $this->posts       = new ArrayCollection();
+        $this->created     = time();
+        $this->lastUpdated = time();
     }
 
     /**
@@ -147,7 +158,7 @@ abstract class Topic implements TopicInterface
      */
     public function setIsDeleted($isDeleted)
     {
-        $this->isDeleted = (boolean) $isDeleted;
+        $this->isDeleted = (boolean)$isDeleted;
 
         return $this;
     }
@@ -236,5 +247,41 @@ abstract class Topic implements TopicInterface
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setLastUpdated($lastUpdated)
+    {
+        $this->lastUpdated = $lastUpdated;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setLastPoster($lastPoster)
+    {
+        $this->lastPoster = $lastPoster;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLastPoster()
+    {
+        return $this->lastPoster;
     }
 }

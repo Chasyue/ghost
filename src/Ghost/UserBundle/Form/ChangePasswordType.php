@@ -15,17 +15,15 @@ class ChangePasswordType extends AbstractType
     {
         $builder->add('current', 'password', array(
             'label'              => 'Current password',
-            'translation_domain' => 'GhostUserBundle',
             'mapped'             => false,
-            'constraints'        => new UserPassword(array('message' => 'ghost_user.currentPassword.mismatch')),
+            'constraints'        => new UserPassword(array('message' => 'Current password mismatch')),
         ));
 
         $builder->add('new', 'repeated', array(
             'type'            => 'password',
-            'options'         => array('translation_domain' => 'GhostUserBundle'),
-            'first_options'   => array('label' => 'form.new_password'),
-            'second_options'  => array('label' => 'form.new_password_confirmation'),
-            'invalid_message' => 'ghost_user.password.mismatch',
+            'first_options'   => array('label' => 'New password'),
+            'second_options'  => array('label' => 'Confirm password'),
+            'invalid_message' => 'Password mismatch',
         ));
     }
 
@@ -36,7 +34,7 @@ class ChangePasswordType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'       => 'Ghost\UserBundle\FormModel\ChangePassword',
-            'validation_groups' => array('ChangePassword')
+            'validation_groups' => array('Default', 'ChangePassword')
         ));
     }
 

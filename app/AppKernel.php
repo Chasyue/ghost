@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Ghost\PostBundle\GhostPostBundle(),
             new Ghost\UserBundle\GhostUserBundle(),
+            new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

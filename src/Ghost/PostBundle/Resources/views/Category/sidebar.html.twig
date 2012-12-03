@@ -1,0 +1,12 @@
+<div class="well well-small">
+    <div class="well-header">
+        <h2>Categories</h2>
+    </div>
+    <div class="well-body">
+        <ul class="unstyled">
+            {% for category in categories %}
+            <li><i class="icon-folder-close"></i> <a href="{{ path('topic_by_category', {'categoryAlias': category.alias}) }}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -46,4 +46,12 @@ class CategoryManager extends BaseCategoryManager
     {
         return $this->repository->findOneBy(array('alias' => $alias));
     }
+
+    /**
+     * @return array of categories
+     */
+    public function findAllCategories()
+    {
+        return $this->repository->findAll();
+    }
 }

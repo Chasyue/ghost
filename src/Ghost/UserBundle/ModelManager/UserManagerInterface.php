@@ -54,6 +54,13 @@ interface UserManagerInterface
     public function findUserByUsernameOrEmail($usernameOrEmail);
 
     /**
+     * @param string $name
+     *
+     * @return UserInterface
+     */
+    public function findUserByName($name);
+
+    /**
      * @param UserInterface $user
      */
     public function updatePassword(UserInterface $user);

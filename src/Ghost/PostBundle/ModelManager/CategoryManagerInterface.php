@@ -14,4 +14,9 @@ interface CategoryManagerInterface
      * @return CategoryInterface
      */
     public function findCategoryByAlias($alias);
+
+    /**
+     * @return array of categories
+     */
+    public function findAllCategories();
 }

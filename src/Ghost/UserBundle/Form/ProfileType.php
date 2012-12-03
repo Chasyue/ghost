@@ -12,7 +12,7 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('name')
+            ->add('name', 'text', array('disabled' => true))
             ->add('email');
     }
 

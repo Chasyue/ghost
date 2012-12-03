@@ -2,7 +2,7 @@
 
 {% block sidebar %}
     <div class="well text-align-center">
-        <a href="{{ path('topic_new', {'categoryAlias': topic.category.alias}) }}" class=""><i class="icon-plus"></i> Post a New Topic</a>
+        <a href="{{ path('topic_new', {'categoryAlias': topic.category.alias}) }}"><i class="icon-plus"></i> Post a New Topic</a>
     </div>
     {{ parent() }}
 {% endblock %}
@@ -11,39 +11,51 @@
     <div class="well well-white topic">
         <div class="well-header">
             <div class="avatar pull-right">
-                <img src="http://l.ruby-china.org/user/normal_avatar/4214.jpg"/>
+                <img src="{{ gravatar(topic.user.email) }}"/>
             </div>
             <h1>{{ topic.title }}</h1>
 
             <p class="muted">
-                <i class="icon-eye-open"></i> {{ topic.viewsCount }} views / <i class="icon-comment"></i> {{ topic.repliesCount }} replies /
-                <i class="icon-time"></i> {{ topic.created|date }} / by <a href="member.html">{{ topic.user.name }}</a></p>
+                <i class="icon-eye-open"></i> {{ topic.viewsCount }} views /
+                <i class="icon-comment"></i> {{ topic.repliesCount }} replies /
+                <i class="icon-time"></i> {{ topic.created|time_ago }} / by
+                <a href="{{ path('user_show', {'name': topic.user.name}) }}">{{ topic.user.name }}</a>
+                {% if can_edit_topic(topic) %}
+                    <i class="icon-edit"></i> <a href="{{ path('topic_edit', {'id': topic.id}) }}">Edit</a>
+                {% endif %}
+            </p>
         </div>
         <div class="well-body">
             <p>{{ topic.body }}</p>
         </div>
     </div>
 
-    {% if topic.posts|length %}
-    <div class="well well-small replies">
-        <div class="well-header">
-            <h3>Replies</h3>
-        </div>
-        <ul class="item-list unstyled">
-            {% for post in topic.posts %}
-            <li class="clearfix">
-                <div class="avatar pull-left">
-                    <img src="http://l.ruby-china.org/user/normal_avatar/983.jpg"/>
-                </div>
-                <p class="muted">
-                    <span class="pull-right"><i class="icon-comment"></i> <a href="">reply</a></span> by
-                    <a href="member.html">{{ post.user.name }}</a> / <i class="icon-time"></i> {{ post.created|date }} </p>
+    {% if posts|length %}
+        <div class="well well-small replies">
+            <div class="well-header">
+                <h3>Replies</h3>
+            </div>
+            <ul class="item-list unstyled">
+                {% for post in posts %}
+                    <li class="clearfix">
+                        <div class="avatar pull-left">
+                            <img src="{{ gravatar(post.user.email) }}"/>
+                        </div>
+                        <p class="muted">
+                            {% if can_edit_post(post) %}
+                                <span class="pull-right"><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">Edit</a></span>
+                            {% endif %}
+                            {% if can_create_post() %}
+                            <span class="pull-right"><i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.name }}" class="reply-action">reply</a></span>{% endif %}
+                            by <a href="{{ path('user_show', {'name': post.user.name}) }}">{{ post.user.name }}</a> /
+                             posted {{ post.created|time_ago }}
+                        </p>
 
-                <p>{{ post.body }}</p>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+                        <p>{{ post.body }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
 
 
@@ -52,15 +64,15 @@
             <h3>Reply to this topic</h3>
         </div>
         <div class="well-body">
-        {% if post_form is not null and can_reply_topic(topic) and can_create_post() %}
-            <form method="post" action="{{ path('post_new', { 'topicId': topic.id }) }}">
-                {{ form_widget(post_form.body, { 'attr': {'class': 'input-block-level', 'rows': 6} }) }}
-                {{ form_rest(post_form) }}
-                <button class="btn btn-success">Submit</button>
-            </form>
-        {% else %}
-            <a href="{{ path('security_login') }}">Sign in to write a reply.</a>
-        {% endif %}
+            {% if post_form is not null and can_reply_topic(topic) and can_create_post() %}
+                <form method="post" action="{{ path('post_new', { 'topicId': topic.id }) }}">
+                    {{ form_widget(post_form.body, { 'attr': {'class': 'input-block-level', 'rows': 6} }) }}
+                    {{ form_rest(post_form) }}
+                    <button class="btn btn-success">Post</button>
+                </form>
+            {% else %}
+                <a href="{{ path('security_login') }}">Sign in to write a reply.</a>
+            {% endif %}
         </div>
     </div>
 

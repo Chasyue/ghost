@@ -23,6 +23,15 @@
             </option>
         </constraint>
 
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">name</option>
+            <option name="message">This name already exists.</option>
+            <option name="groups">
+                <value>Registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
+
         <property name="username">
             <constraint name="NotBlank">
                 <option name="message">Please enter a username</option>

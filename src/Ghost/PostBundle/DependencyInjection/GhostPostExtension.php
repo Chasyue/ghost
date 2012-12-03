@@ -24,5 +24,6 @@ class GhostPostExtension extends Extension
         $loader->load('breadcrumb.xml');
         $loader->load('pager.xml');
         $loader->load('acl.xml');
+        $loader->load('twig.xml');
     }
 }

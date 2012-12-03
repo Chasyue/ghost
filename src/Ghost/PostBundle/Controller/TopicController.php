@@ -23,7 +23,9 @@ class TopicController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $this->get('ghost.breadcrumb')->add($category->getName());
+        $this->get('ghost.breadcrumb')
+            ->add($category->getName(), $this->generateUrl('topic_by_category', array('categoryAlias' => $category->getAlias())))
+            ->add('Topics');
 
         $pager = $this->get('ghost.manager.topic.acl')->findTopicsByCategory($category, $this->getRequest()->get('page', 1));
 
@@ -50,6 +52,8 @@ class TopicController extends Controller
 
         $this->get('ghost.manager.topic.default')->incrementViewsCount($topic);
 
+        $posts = $this->get('ghost.manager.post.acl')->findPostsByTopic($topic);
+
         if ($this->get('ghost.acl.topic')->canReply($topic) && $this->get('ghost.acl.post')->canCreate()) {
             $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);
         } else {
@@ -58,6 +62,7 @@ class TopicController extends Controller
 
         return $this->render('GhostPostBundle:Topic:show.html.twig', array(
             'topic'     => $topic,
+            'posts'     => $posts,
             'post_form' => (null != $postForm ? $postForm->createView() : null)
         ));
     }
@@ -72,6 +77,10 @@ class TopicController extends Controller
         if (!$category) {
             throw $this->createNotFoundException();
         }
+
+        $this->get('ghost.breadcrumb')
+            ->add($category->getName(), $this->generateUrl('topic_by_category', array('categoryAlias' => $category->getAlias())))
+            ->add('Post a New Topic');
 
         $form        = $this->get('ghost.form.factory.topic_new')->createForm($category);
         $formHandler = $this->get('ghost.form.handler.topic');
@@ -100,6 +109,11 @@ class TopicController extends Controller
         if (!$this->get('ghost.acl.topic')->canEdit($topic)) {
             throw new AccessDeniedException();
         }
+
+        $this->get('ghost.breadcrumb')
+            ->add($topic->getCategory()->getName(), $this->generateUrl('topic_by_category', array('categoryAlias' => $topic->getCategory()->getAlias())))
+            ->add($topic->getTitle(), $this->generateUrl('topic_show', array('id' => $topic->getId())))
+            ->add('Edit the Topic');
 
         $form        = $this->get('ghost.form.factory.topic_edit')->createForm($topic);
         $formHandler = $this->get('ghost.form.handler.topic');
