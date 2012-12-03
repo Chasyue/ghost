@@ -1,0 +1,64 @@
+{% block form_row %}
+    {% spaceless %}
+        {% set class =  (errors|length > 0 ? ' error' : '') %}
+        <div class="control-group{{ class }}">
+            {{ form_label(form) }}
+            <div class="controls">
+                {{ form_widget(form) }}
+                {{ form_errors(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+{% block form_label %}
+    {% spaceless %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <label class="control-label" for="{{ id }}">
+            {{ label|trans }}
+        </label>
+    {% endspaceless %}
+{% endblock %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <div class="alert alert-block">
+                {% for error in errors %}
+                    <p>{{ error.messagePluralization is null
+                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                    : error.messageTemplate|transchoice(error.messagePluralization,
+                    error.messageParameters, 'validators') }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block field_errors %}
+    {% spaceless %}
+        {% if errors|length == 1 %}
+            {% set error = errors[0] %}
+            <span class="help-inline">
+                {{ error.messagePluralization is null
+                ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators') }}
+            </span>
+        {% endif %}
+
+        {% if errors|length > 1 %}
+            <div class="help-block">
+                <ul class="unstyled">
+                    {% for error in errors %}
+                        <li>{{ error.messagePluralization is null
+                        ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                        : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators') }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock field_errors %}

@@ -15,12 +15,21 @@ class TopicController extends Controller
     /**
      * Lists all Topic
      */
-    public function indexAction()
+    public function categoryAction($categoryAlias)
     {
-        $pager = $this->get('ghost.manager.topic.acl')->findTopics($this->getRequest()->get('page', 1));
+        $category = $this->get('ghost.manager.category.default')->findCategoryByAlias($categoryAlias);
 
-        return $this->render('GhostPostBundle:Topic:index.html.twig', array(
-            'pager' => $pager,
+        if (!$category) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->get('ghost.breadcrumb')->add($category->getName());
+
+        $pager = $this->get('ghost.manager.topic.acl')->findTopicsByCategory($category, $this->getRequest()->get('page', 1));
+
+        return $this->render('GhostPostBundle:Topic:category.html.twig', array(
+            'pager'    => $pager,
+            'category' => $category
         ));
     }
 
@@ -35,14 +44,21 @@ class TopicController extends Controller
             throw $this->createNotFoundException('Unable to find Topic.');
         }
 
-        $this->get('ghost.breadcrumb')->add($topic->getCategory()->getName());
-        $this->get('ghost.manager.topic.acl')->incrementViewsCount($topic);
+        $this->get('ghost.breadcrumb')
+            ->add($topic->getCategory()->getName(), $this->generateUrl('topic_by_category', array('categoryAlias' => $topic->getCategory()->getAlias())))
+            ->add($topic->getTitle());
 
-        $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);
+        $this->get('ghost.manager.topic.default')->incrementViewsCount($topic);
+
+        if ($this->get('ghost.acl.topic')->canReply($topic) && $this->get('ghost.acl.post')->canCreate()) {
+            $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);
+        } else {
+            $postForm = null;
+        }
 
         return $this->render('GhostPostBundle:Topic:show.html.twig', array(
             'topic'     => $topic,
-            'post_form' => $postForm->createView()
+            'post_form' => (null != $postForm ? $postForm->createView() : null)
         ));
     }
 

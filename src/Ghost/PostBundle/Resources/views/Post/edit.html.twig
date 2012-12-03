@@ -1,8 +1,17 @@
-<h1>Post edit</h1>
+{% extends 'GhostPostBundle::layout.html.twig' %}
 
-<form action="{{ path('post_edit', { 'id': post.id }) }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
+{% block body %}
+    <div class="well well-small well-white">
+        <div class="well-header">
+            <h3>Edit post</h3>
+        </div>
+        <div class="well-body">
+            <form method="post" action="{{ path('post_edit', { 'id': post.id }) }}">
+                {{ form_widget(form.body, { 'attr': {'class': 'input-block-level', 'rows': 6} }) }}
+                {{ form_errors(form.body) }}
+                {{ form_rest(form) }}
+                <button class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

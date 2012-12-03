@@ -138,7 +138,6 @@ class PostAcl implements PostAclInterface
 
         $builder
             ->reset()
-            ->add('create')
             ->add('view');
         $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
 

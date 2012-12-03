@@ -1,55 +1,68 @@
-<h1>Topic</h1>
+{% extends 'GhostPostBundle::layout.html.twig' %}
 
-<table class="record_properties">
-    <tbody>
-    <tr>
-        <th>Title</th>
-        <td>{{ topic.title }}</td>
-    </tr>
-    <tr>
-        <th>Body</th>
-        <td>{{ topic.body }}</td>
-    </tr>
-    <tr>
-        <th>Viewscount</th>
-        <td>{{ topic.viewsCount }}</td>
-    </tr>
-    <tr>
-        <th>Repliescount</th>
-        <td>{{ topic.repliesCount }}</td>
-    </tr>
-    <tr>
-        <th>Isdeleted</th>
-        <td>{{ topic.isDeleted }}</td>
-    </tr>
-    <tr>
-        <th>Created</th>
-        <td>{{ topic.created }}</td>
-    </tr>
-    <tr>
-        <th>Id</th>
-        <td>{{ topic.id }}</td>
-    </tr>
-    </tbody>
-</table>
+{% block sidebar %}
+    <div class="well text-align-center">
+        <a href="{{ path('topic_new', {'categoryAlias': topic.category.alias}) }}" class=""><i class="icon-plus"></i> Post a New Topic</a>
+    </div>
+    {{ parent() }}
+{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('topic') }}"> Back to the list </a>
-    </li>
-    <li>
-        <a href="{{ path('topic_edit', { 'id': topic.id }) }}"> Edit </a>
-    </li>
-</ul>
+{% block body %}
+    <div class="well well-white topic">
+        <div class="well-header">
+            <div class="avatar pull-right">
+                <img src="http://l.ruby-china.org/user/normal_avatar/4214.jpg"/>
+            </div>
+            <h1>{{ topic.title }}</h1>
 
-{% for post in topic.posts %}
+            <p class="muted">
+                <i class="icon-eye-open"></i> {{ topic.viewsCount }} views / <i class="icon-comment"></i> {{ topic.repliesCount }} replies /
+                <i class="icon-time"></i> {{ topic.created|date }} / by <a href="member.html">{{ topic.user.name }}</a></p>
+        </div>
+        <div class="well-body">
+            <p>{{ topic.body }}</p>
+        </div>
+    </div>
 
-    <p>{{ post.body }} on {{ post.created|date }}, by {{ post.user.username }}</p>
+    {% if topic.posts|length %}
+    <div class="well well-small replies">
+        <div class="well-header">
+            <h3>Replies</h3>
+        </div>
+        <ul class="item-list unstyled">
+            {% for post in topic.posts %}
+            <li class="clearfix">
+                <div class="avatar pull-left">
+                    <img src="http://l.ruby-china.org/user/normal_avatar/983.jpg"/>
+                </div>
+                <p class="muted">
+                    <span class="pull-right"><i class="icon-comment"></i> <a href="">reply</a></span> by
+                    <a href="member.html">{{ post.user.name }}</a> / <i class="icon-time"></i> {{ post.created|date }} </p>
 
-{% endfor %}
+                <p>{{ post.body }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
-<h2>Reply</h2>
-<form action="{{ path('post_new', { 'topicId': topic.id }) }}" method="post">
-    {{ form_widget(post_form) }}
-    <button type="submit">Submit</button>
-</form>
+
+    <div class="well well-small">
+        <div class="well-header">
+            <h3>Reply to this topic</h3>
+        </div>
+        <div class="well-body">
+        {% if post_form is not null and can_reply_topic(topic) and can_create_post() %}
+            <form method="post" action="{{ path('post_new', { 'topicId': topic.id }) }}">
+                {{ form_widget(post_form.body, { 'attr': {'class': 'input-block-level', 'rows': 6} }) }}
+                {{ form_rest(post_form) }}
+                <button class="btn btn-success">Submit</button>
+            </form>
+        {% else %}
+            <a href="{{ path('security_login') }}">Sign in to write a reply.</a>
+        {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

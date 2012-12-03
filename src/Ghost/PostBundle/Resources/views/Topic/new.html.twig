@@ -1,14 +1,19 @@
-<h1>Topic creation</h1>
+{% extends 'GhostPostBundle::layout.html.twig' %}
 
-<form action="{{ path('topic_new', {'categoryAlias': category.alias}) }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('topic') }}"> Back to the list </a>
-    </li>
-</ul>
+{% block body %}
+    <div class="well well-small well-white">
+        <div class="well-header">
+            <h3>New Topic</h3>
+        </div>
+        <div class="well-body">
+            <form method="post" action="{{ path('topic_new', {'categoryAlias': category.alias}) }}" {{ form_enctype(form) }}>
+                {{ form_widget(form.title, { 'attr': {'class': 'input-block-level'} }) }}
+                {{ form_errors(form.title) }}
+                {{ form_widget(form.body, { 'attr': {'class': 'input-block-level', 'rows': 6} }) }}
+                {{ form_errors(form.body) }}
+                {{ form_rest(form) }}
+                <button class="btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

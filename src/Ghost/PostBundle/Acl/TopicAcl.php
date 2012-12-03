@@ -146,7 +146,6 @@ class TopicAcl implements TopicAclInterface
 
         $builder
             ->reset()
-            ->add('create')
             ->add('view');
         $acl->insertClassAce(new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY'), $builder->get());
 

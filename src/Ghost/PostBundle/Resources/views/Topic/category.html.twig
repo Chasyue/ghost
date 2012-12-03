@@ -1,0 +1,31 @@
+{% extends 'GhostPostBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="well well-small clearfix topics">
+        <div class="well-header">
+            <h2>{{ category.name }}</h2>
+        </div>
+
+        <ul class="item-list unstyled">
+            {% for item in pager.getResults %}
+                <li class="clearfix">
+                    <div class="avatar pull-left">
+                        <a href="member.html"><img src="http://l.ruby-china.org/user/normal_avatar/983.jpg"/></a>
+                    </div>
+                    <div class="replies pull-right">
+                        <a class="badge" href="{{ path('topic_show', { 'id': item.id }) }}#{{ item.repliesCount }}">{{ item.repliesCount }}</a>
+                    </div>
+                    <h3><a href="{{ path('topic_show', { 'id': item.id }) }}">{{ item.title }}</a></h3>
+
+                    <p class="muted">
+                        <i class="icon-comment"></i> {{ item.repliesCount }} replies / <i class="icon-time"></i> 9h ago / by
+                        <a href="member.html">tom</a></p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if pager.isPaginable %}
+            {{ paginate(pager, 'topic') }}
+        {% endif %}
+    </div>
+{% endblock %}

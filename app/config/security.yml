@@ -35,8 +35,8 @@ security:
             logout:
                 path:   /user/logout
                 target: /
-            anonymous: ~
+            anonymous: true
 
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+#        - { path: ^/topic/\d+, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }

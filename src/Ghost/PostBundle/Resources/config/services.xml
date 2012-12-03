@@ -12,17 +12,17 @@
 
     <services>
         <service id="ghost.manager.category.default" class="Ghost\PostBundle\EntityManager\CategoryManager">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%ghost.entity.category.class%</argument>
         </service>
         <service id="ghost.manager.topic.default" class="Ghost\PostBundle\EntityManager\TopicManager">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%ghost.entity.topic.class%</argument>
         </service>
         <service id="ghost.manager.post.default" class="Ghost\PostBundle\EntityManager\PostManager">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%ghost.entity.post.class%</argument>
         </service>
     </services>

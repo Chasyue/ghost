@@ -44,13 +44,15 @@ class AclPostManager implements PostManagerInterface
      */
     public function findAllPosts()
     {
-        $post = $this->realManager->findAllPosts();
+        $posts = $this->realManager->findAllPosts();
 
-        if (null != $post && !$this->postAcl->canView($post)) {
-            throw new AccessDeniedException();
+        foreach ($posts as $post) {
+            if (!$this->postAcl->canView($post)) {
+                throw new AccessDeniedException();
+            }
         }
 
-        return $post;
+        return $posts;
     }
 
     /**
@@ -60,7 +62,7 @@ class AclPostManager implements PostManagerInterface
     {
         $post = $this->realManager->findPost($id);
 
-        if (!$this->postAcl->canView($post)) {
+        if (null != $post && !$this->postAcl->canView($post)) {
             throw new AccessDeniedException();
         }
 

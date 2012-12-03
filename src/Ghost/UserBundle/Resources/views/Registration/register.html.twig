@@ -1,8 +1,17 @@
-<h1>User creation</h1>
+{% extends 'GhostUserBundle::layout.html.twig' %}
 
-<form action="{{ path('user_register') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
+{% block user_body %}
+    <div class="well-header">
+        <h2>Sign Up</h2>
+    </div>
+    <div class="well-body">
+        <form class="form-horizontal" action="{{ path("user_register") }}" method="post">
+            {{ form_widget(form) }}
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-success" type="submit">Sign Up</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -4,23 +4,23 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="Ghost\PostBundle\Entity\Topic" table="topic">
         <id name="id" type="integer" column="id">
-            <generator strategy="IDENTITY"/>
+            <generator strategy="IDENTITY" />
         </id>
-        <field name="title" type="string" column="title" length="200"/>
-        <field name="body" type="text" column="body"/>
-        <field name="viewsCount" type="integer" column="views_count"/>
-        <field name="repliesCount" type="integer" column="replies_count"/>
-        <field name="isDeleted" type="boolean" column="is_deleted"/>
-        <field name="created" type="integer" column="created"/>
-        <one-to-many field="posts" target-entity="Post" mapped-by="topic"/>
+        <field name="title" type="string" column="title" length="200" />
+        <field name="body" type="text" column="body" />
+        <field name="viewsCount" type="integer" column="views_count" />
+        <field name="repliesCount" type="integer" column="replies_count" />
+        <field name="isDeleted" type="boolean" column="is_deleted" />
+        <field name="created" type="integer" column="created" />
+        <one-to-many field="posts" target-entity="Post" mapped-by="topic" />
         <many-to-one field="user" target-entity="Ghost\UserBundle\Entity\User">
             <join-columns>
-                <join-column name="user_id" referenced-column-name="id"/>
+                <join-column name="user_id" referenced-column-name="id" />
             </join-columns>
         </many-to-one>
         <many-to-one field="category" target-entity="Category">
             <join-columns>
-                <join-column name="category_id" referenced-column-name="id"/>
+                <join-column name="category_id" referenced-column-name="id" />
             </join-columns>
         </many-to-one>
     </entity>

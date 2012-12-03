@@ -12,6 +12,8 @@ class RegistrationController extends Controller
 {
     public function registerAction()
     {
+        $this->get('ghost.breadcrumb')->add('Sign Up');
+
         $form        = $this->get('ghost.form.registration');
         $formHandler = $this->get('ghost.form.handler.registration');
 

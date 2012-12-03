@@ -8,6 +8,10 @@
         <default key="_controller">GhostPostBundle:Home:index</default>
     </route>
 
-    <import resource="@GhostPostBundle/Resources/config/routing/topic.xml" prefix="/topic"/>
-    <import resource="@GhostPostBundle/Resources/config/routing/post.xml" prefix="/post"/>
+    <route id="topic_by_category" pattern="/go/{categoryAlias}">
+        <default key="_controller">GhostPostBundle:Topic:category</default>
+    </route>
+
+    <import resource="@GhostPostBundle/Resources/config/routing/topic.xml" prefix="/topic" />
+    <import resource="@GhostPostBundle/Resources/config/routing/post.xml" prefix="/post" />
 </routes>

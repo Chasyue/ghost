@@ -34,9 +34,9 @@
 
                 <ul class="nav pull-right">
                     <li class="divider-vertical"></li>
-                    <li><a href="{{ path('user_register') }}">Sign In</a></li>
+                    <li><a href="{{ path('security_login') }}">Sign In</a></li>
                     <li class="divider-vertical"></li>
-                    <li><a href="{{ path('security_login') }}">Sign Up</a></li>
+                    <li><a href="{{ path('user_register') }}">Sign Up</a></li>
                     <li class="divider-vertical"></li>
                 </ul>
             </div>
@@ -68,6 +68,7 @@
             {% endblock %}
         </div>
         <div class="span3 sidebar">
+            {% block sidebar %}
             <div class="well well-small">
                 <div class="well-header">
                     <h2>Categories</h2>
@@ -80,6 +81,7 @@
                     </ul>
                 </div>
             </div>
+            {% endblock %}
         </div>
     </div>
 </div>

@@ -6,13 +6,13 @@
 
     <services>
         <service id="ghost.event.topic" class="Ghost\PostBundle\EventListener\TopicEventListener">
-            <argument type="service" id="ghost.manager.topic.default"/>
-            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="ghost.manager.topic.default" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="ghost.event.post" class="Ghost\PostBundle\EventListener\PostEventListener">
-            <argument type="service" id="ghost.manager.post.default"/>
-            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="ghost.manager.post.default" />
+            <tag name="kernel.event_subscriber" />
         </service>
     </services>
 </container>
