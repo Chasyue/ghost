@@ -62,7 +62,7 @@ class TopicManager extends BaseTopicManager
             ->join('t.category', 'c')
             ->join('t.user', 'u')
             ->where('t.isDeleted = 0')
-            ->orderBy('t.lastUpdated', 'desc');
+            ->orderBy('t.lastPost', 'desc');
 
         return $qb->getQuery()->getResult();
     }
@@ -77,7 +77,7 @@ class TopicManager extends BaseTopicManager
             ->join('t.category', 'c')
             ->join('t.user', 'u')
             ->where('t.isDeleted = 0')
-            ->orderBy('t.lastUpdated', 'desc');
+            ->orderBy('t.lastPost', 'desc');
 
         $pager = new Pager(new ProxyQuery($qb));
         $pager->setPage($page);
@@ -96,7 +96,7 @@ class TopicManager extends BaseTopicManager
             ->join('t.user', 'u')
             ->where('c.id = :category')
             ->andWhere('t.isDeleted = 0')
-            ->orderBy('t.lastUpdated', 'desc')
+            ->orderBy('t.lastPost', 'desc')
             ->setParameter('category', $category->getId());
 
         $pager = new Pager(new ProxyQuery($qb));

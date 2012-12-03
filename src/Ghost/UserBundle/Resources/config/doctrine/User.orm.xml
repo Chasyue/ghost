@@ -9,7 +9,7 @@
         <field name="username" type="string" column="username" length="20" unique="true" />
         <field name="password" type="string" column="password" length="100" />
         <field name="salt" type="string" column="salt" length="50" />
-        <field name="name" type="string" column="name" length="20" nullable="true" unique="true" />
+        <field name="name" type="string" column="name" length="20" nullable="true" />
         <field name="email" type="string" column="email" length="100" unique="true" />
         <field name="created" type="integer" column="created" />
     </entity>

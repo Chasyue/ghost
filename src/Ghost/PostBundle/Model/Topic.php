@@ -49,7 +49,7 @@ abstract class Topic implements TopicInterface
     /**
      * @var integer
      */
-    protected $lastUpdated;
+    protected $lastPost;
 
     /**
      * @var string
@@ -78,7 +78,7 @@ abstract class Topic implements TopicInterface
     {
         $this->posts       = new ArrayCollection();
         $this->created     = time();
-        $this->lastUpdated = time();
+        $this->lastPost = time();
     }
 
     /**
@@ -252,9 +252,9 @@ abstract class Topic implements TopicInterface
     /**
      * {@inheritDoc}
      */
-    public function setLastUpdated($lastUpdated)
+    public function setLastPost($lastPost)
     {
-        $this->lastUpdated = $lastUpdated;
+        $this->lastPost = $lastPost;
 
         return $this;
     }
@@ -262,9 +262,9 @@ abstract class Topic implements TopicInterface
     /**
      * {@inheritDoc}
      */
-    public function getLastUpdated()
+    public function getLastPost()
     {
-        return $this->lastUpdated;
+        return $this->lastPost;
     }
 
     /**

@@ -16,6 +16,8 @@
         <ul class="item-list unstyled">
             {% for item in pager.getResults %}
                 {% include 'GhostPostBundle:Topic:item_list.html.twig' %}
+            {% else %}
+                <li>Category is empty.</li>
             {% endfor %}
         </ul>
 

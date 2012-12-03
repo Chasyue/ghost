@@ -162,16 +162,16 @@ interface TopicInterface
     public function getCategory();
 
     /**
-     * @param integer $lastUpdated
+     * @param integer $lastPost
      *
      * @return self
      */
-    public function setLastUpdated($lastUpdated);
+    public function setLastPost($lastPost);
 
     /**
      * @return integer
      */
-    public function getLastUpdated();
+    public function getLastPost();
 
     /**
      * @param string $lastPoster

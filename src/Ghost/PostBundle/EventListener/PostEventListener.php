@@ -36,7 +36,7 @@ class PostEventListener implements EventSubscriberInterface
         }
 
         $topic = $event->getTopic();
-        $topic->setLastUpdated($post->getCreated());
+        $topic->setLastPost($post->getCreated());
         $topic->setLastPoster($post->getUser()->getUsername());
         $topic->incrementRepliesCount();
     }
