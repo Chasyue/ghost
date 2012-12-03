@@ -6,6 +6,7 @@
         <id name="id" type="smallint" column="id">
             <generator strategy="IDENTITY" />
         </id>
+
         <field name="name" type="string" column="name" length="25" />
         <field name="alias" type="string" column="alias" length="50" unique="true" />
         <field name="topicsCount" type="integer" column="topics_count" />
