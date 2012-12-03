@@ -69,6 +69,7 @@ class PostManager extends BasePostManager
             ->join('p.user', 'u')
             ->where('t.id = :topic')
             ->andWhere('p.isDeleted = 0')
+            ->orderBy('p.created', 'desc')
             ->setParameter('topic', $topic->getId());
 
         $query = $qb->getQuery();
