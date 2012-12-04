@@ -26,8 +26,12 @@ h3 {
 }
 
 pre {
+    margin: 10px 0;
+}
+
+pre code {
     font-family: Monaco,Menlo,"Courier New", monospace;
-    fon
+    font-size: 12px;
 }
 
 .main {
