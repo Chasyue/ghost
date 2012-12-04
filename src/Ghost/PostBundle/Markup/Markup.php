@@ -20,10 +20,10 @@ class Markup implements ParserInterface
     {
         if (null == $this->parser) {
             $this->parser = new MarkdownParser(array(
-                'no_html'  => true,
-                'entities' => false,
-                'header'   => false,
-                'table'    => false
+                'entities'  => false,
+                'header'    => false,
+                'table'     => false,
+                'auto_link' => true
             ));
         }
 
