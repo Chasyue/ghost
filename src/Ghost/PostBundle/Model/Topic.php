@@ -27,6 +27,11 @@ abstract class Topic implements TopicInterface
     protected $body;
 
     /**
+     * @var string
+     */
+    protected $rawBody;
+
+    /**
      * @var integer $viewsCount
      */
     protected $viewsCount = 0;
@@ -76,8 +81,8 @@ abstract class Topic implements TopicInterface
      */
     public function __construct()
     {
-        $this->posts       = new ArrayCollection();
-        $this->created     = time();
+        $this->posts    = new ArrayCollection();
+        $this->created  = time();
         $this->lastPost = time();
     }
 
@@ -115,6 +120,24 @@ abstract class Topic implements TopicInterface
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRawBody($rawBody)
+    {
+        $this->rawBody = $rawBody;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRawBody()
+    {
+        return $this->rawBody ? $this->rawBody : $this->getBody();
     }
 
     /**

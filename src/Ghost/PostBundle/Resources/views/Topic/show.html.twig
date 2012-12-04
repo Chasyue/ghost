@@ -25,8 +25,8 @@
                 {% endif %}
             </p>
         </div>
-        <div class="well-body">
-            <p>{{ topic.body }}</p>
+        <div class="well-body topic-body">
+            <p>{{ topic.rawBody|raw }}</p>
         </div>
     </div>
 
@@ -38,25 +38,34 @@
             <ul class="item-list unstyled">
                 {% for post in pager.getResults %}
                     <li class="clearfix">
-                        <div class="avatar pull-left">
-                            <img src="{{ gravatar(post.user.email) }}"/>
-                        </div>
-                        <div class="muted">
-                            <div class="pull-right">
-                                {% if can_edit_post(post) %}
-                                    <span><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">Edit</a></span>
-                                {% endif %}
-                                {% if can_create_post() %}
-                                    <span>
-                                        <i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.username }}" class="reply-action">reply</a>
-                                    </span>{% endif %}
-                                <span class="number">{{ (pager.getPage - 1) * pager.getLimit + loop.index }}</span>
-                            </div>
-                            by
-                            <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> / posted {{ post.created|time_ago }}
-                        </div>
-
-                        <p>{{ post.body }}</p>
+                        <table>
+                            <tr>
+                                <td width="48">
+                                    <div class="avatar pull-left">
+                                        <img src="{{ gravatar(post.user.email) }}" width="48" height="48"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="pull-right">
+                                        {% if can_edit_post(post) %}
+                                            <span><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">Edit</a></span>
+                                        {% endif %}
+                                        {% if can_create_post() %}
+                                            <span>
+                                                <i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.username }}" class="reply-action">reply</a>
+                                            </span>{% endif %}
+                                        <span class="number">{{ (pager.getPage - 1) * pager.getLimit + loop.index }}</span>
+                                    </div>
+                                    <div class="muted">
+                                        by
+                                        <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> / posted {{ post.created|time_ago }}
+                                    </div>
+                                    <div class="reply-body">
+                                        {{ post.rawBody|raw }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </li>
                 {% endfor %}
             </ul>

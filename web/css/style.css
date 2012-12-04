@@ -25,6 +25,15 @@ h3 {
     font-size: 14px;
 }
 
+pre {
+    margin: 10px 0;
+}
+
+pre code {
+    font-family: Monaco, Menlo, "Courier New", monospace;
+    font-size: 12px;
+}
+
 .main {
     margin-top: 55px;
 }
@@ -127,6 +136,7 @@ h3 {
 }
 
 .item-list .avatar {
+    width: 48px;
     margin-right: 10px;
 }
 
@@ -191,6 +201,15 @@ h3 {
     color: #777;
 }
 
-.replies .muted span {
+.replies .pull-right span {
     margin: 0 0 0 8px;
+}
+
+.replies table {
+    width: 100%;
+}
+
+.topic-body, .reply-body {
+    font-size: 14px;
+    line-height: 1.6;
 }

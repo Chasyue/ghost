@@ -5,12 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="ghost.time.twig" class="Ghost\PostBundle\Twig\Filter\TimeFilter">
-            <tag name="twig.extension" />
+        <service id="ghost.markup" class="Ghost\PostBundle\Markup\Markup">
+            <argument type="service" id="markdown.parser" />
         </service>
 
-        <service id="ghost.html_purifier.twig" class="Ghost\PostBundle\Twig\Filter\HtmlPurifierFilter">
-            <tag name="twig.extension" />
+        <service id="ghost.event.post_markup" class="Ghost\PostBundle\EventListener\PostMarkupListener">
+            <argument type="service" id="ghost.markup" />
+            <tag name="kernel.event_subscriber" />
         </service>
     </services>
 </container>
