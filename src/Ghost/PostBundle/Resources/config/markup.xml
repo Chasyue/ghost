@@ -8,9 +8,15 @@
         <service id="ghost.markup" class="Ghost\PostBundle\Markup\Markup">
             <argument type="service" id="markdown.parser" />
         </service>
+        <service id="ghost.mention" class="Ghost\PostBundle\Markup\Mention" />
 
         <service id="ghost.event.post_markup" class="Ghost\PostBundle\EventListener\PostMarkupListener">
             <argument type="service" id="ghost.markup" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="ghost.event.post_mention" class="Ghost\PostBundle\EventListener\PostMarkupListener">
+            <argument type="service" id="ghost.mention" />
             <tag name="kernel.event_subscriber" />
         </service>
     </services>
