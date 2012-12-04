@@ -1,1 +1,1 @@
-https://github.com/tangwenming/Ghost
+http://ghost.betanews.com.cn
