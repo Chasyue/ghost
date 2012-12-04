@@ -8,9 +8,5 @@
         <service id="ghost.time.twig" class="Ghost\PostBundle\Twig\Filter\TimeFilter">
             <tag name="twig.extension" />
         </service>
-
-        <service id="ghost.html_purifier.twig" class="Ghost\PostBundle\Twig\Filter\HtmlPurifierFilter">
-            <tag name="twig.extension" />
-        </service>
     </services>
 </container>
