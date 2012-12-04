@@ -26,12 +26,8 @@ h3 {
 }
 
 pre {
-    margin: 10px 0;
-}
-
-pre code {
-    font-family: Monaco, Menlo, "Courier New", monospace;
-    font-size: 12px;
+    font-family: Monaco,Menlo,"Courier New", monospace;
+    fon
 }
 
 .main {
@@ -126,25 +122,25 @@ pre code {
     padding-top: 10px;
 }
 
-.item-list li {
+.item-list li.item {
     border-bottom: 1px solid #DDD;
     padding: 10px 0;
 }
 
-.item-list li p {
+.item-list li.item p {
     margin: 0;
 }
 
-.item-list .avatar {
+.item-list li.item .avatar {
     width: 48px;
     margin-right: 10px;
 }
 
-.item-list li .replies {
+.item-list li.item .replies {
     padding-top: 16px;
 }
 
-.item-list li h3 {
+.item-list li.item h3 {
     font-size: 14px;
     font-weight: normal;
     margin-top: 5px;
@@ -161,13 +157,13 @@ pre code {
     padding: 0 10px 10px 10px;
 }
 
-.topics .item-list li, .replies .item-list li {
+.topics .item-list li.item, .replies .item-list li.item {
     background-color: #fff;
     margin: 0 -9px;
     padding: 10px;
 }
 
-.topics .item-list li {
+.topics .item-list li.item {
     background-image: linear-gradient(to bottom, white, #F2F2F2);
     background-image: -o-linear-gradient(top, white, #F2F2F2);
     background-image: -webkit-linear-gradient(top, white, #F2F2F2);
