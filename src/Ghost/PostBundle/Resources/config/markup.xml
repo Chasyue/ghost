@@ -5,18 +5,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="ghost.markup" class="Ghost\PostBundle\Markup\Markup">
-            <argument type="service" id="markdown.parser" />
-        </service>
-        <service id="ghost.mention" class="Ghost\PostBundle\Markup\Mention" />
+        <service id="ghost.helper.markup" class="Ghost\PostBundle\Markup\MarkupHelper" public="false"/>
 
-        <service id="ghost.event.post_markup" class="Ghost\PostBundle\EventListener\PostMarkupListener">
-            <argument type="service" id="ghost.markup" />
-            <tag name="kernel.event_subscriber" />
-        </service>
-
-        <service id="ghost.event.post_mention" class="Ghost\PostBundle\EventListener\PostMarkupListener">
-            <argument type="service" id="ghost.mention" />
+        <service id="ghost.event.markup" class="Ghost\PostBundle\EventListener\PostMarkupListener">
+            <argument type="service" id="ghost.helper.markup" />
             <tag name="kernel.event_subscriber" />
         </service>
     </services>

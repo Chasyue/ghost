@@ -2,9 +2,9 @@
 namespace Ghost\PostBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Ghost\PostBundle\Markup\MarkupHelper;
 use Ghost\PostBundle\Event\TopicEvent;
 use Ghost\PostBundle\Event\PostEvent;
-use Ghost\PostBundle\Markup\ParserInterface;
 use Ghost\PostBundle\Event\Events;
 
 /**
@@ -13,16 +13,16 @@ use Ghost\PostBundle\Event\Events;
 class PostMarkupListener implements EventSubscriberInterface
 {
     /**
-     * @var ParserInterface
+     * @var MarkupHelper
      */
-    private $parser;
+    private $helper;
 
     /**
-     * @param ParserInterface $parser
+     * @param MarkupHelper $helper
      */
-    public function __construct(ParserInterface $parser)
+    public function __construct(MarkupHelper $helper)
     {
-        $this->parser = $parser;
+        $this->helper = $helper;
     }
 
     /**
@@ -31,7 +31,7 @@ class PostMarkupListener implements EventSubscriberInterface
     public function onPostPersist(PostEvent $event)
     {
         $post   = $event->getPost();
-        $result = $this->parser->parse($post->getBody());
+        $result = $this->helper->transform($post->getBody());
         $post->setRawBody($result);
     }
 
@@ -41,7 +41,7 @@ class PostMarkupListener implements EventSubscriberInterface
     public function onTopicPersist(TopicEvent $event)
     {
         $topic  = $event->getTopic();
-        $result = $this->parser->parse($topic->getBody());
+        $result = $this->helper->transform($topic->getBody());
         $topic->setRawBody($result);
     }
 

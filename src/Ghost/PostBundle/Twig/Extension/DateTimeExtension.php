@@ -1,10 +1,10 @@
 <?php
-namespace Ghost\PostBundle\Twig\Filter;
+namespace Ghost\PostBundle\Twig\Extension;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
-class TimeFilter extends \Twig_Extension
+class DateTimeExtension extends \Twig_Extension
 {
     /**
      * {@inheritDoc}
@@ -44,6 +44,6 @@ class TimeFilter extends \Twig_Extension
      */
     public function getName()
     {
-        return 'ghost.time_filter';
+        return 'ghost.date_time';
     }
 }
