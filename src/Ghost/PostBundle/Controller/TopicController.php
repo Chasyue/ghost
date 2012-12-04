@@ -52,7 +52,7 @@ class TopicController extends Controller
 
         $this->get('ghost.manager.topic.default')->incrementViewsCount($topic);
 
-        $posts = $this->get('ghost.manager.post.acl')->findPostsByTopic($topic);
+        $pager = $this->get('ghost.manager.post.acl')->findPostsByTopic($topic, $this->getRequest()->get('page', 1));
 
         if ($this->get('ghost.acl.topic')->canReply($topic) && $this->get('ghost.acl.post')->canCreate()) {
             $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);
@@ -62,7 +62,7 @@ class TopicController extends Controller
 
         return $this->render('GhostPostBundle:Topic:show.html.twig', array(
             'topic'     => $topic,
-            'posts'     => $posts,
+            'pager'     => $pager,
             'post_form' => (null != $postForm ? $postForm->createView() : null)
         ));
     }

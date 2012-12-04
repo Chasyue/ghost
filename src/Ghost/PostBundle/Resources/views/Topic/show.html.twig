@@ -30,31 +30,39 @@
         </div>
     </div>
 
-    {% if posts|length %}
+    {% if topic.repliesCount %}
         <div class="well well-small replies">
             <div class="well-header">
                 <h3>Replies</h3>
             </div>
             <ul class="item-list unstyled">
-                {% for post in posts %}
+                {% for post in pager.getResults %}
                     <li class="clearfix">
                         <div class="avatar pull-left">
                             <img src="{{ gravatar(post.user.email) }}"/>
                         </div>
-                        <p class="muted">
-                            {% if can_edit_post(post) %}
-                                <span class="pull-right"><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">Edit</a></span>
-                            {% endif %}
-                            {% if can_create_post() %}
-                            <span class="pull-right"><i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.username }}" class="reply-action">reply</a></span>{% endif %}
-                            by <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> /
-                             posted {{ post.created|time_ago }}
-                        </p>
+                        <div class="muted">
+                            <div class="pull-right">
+                                {% if can_edit_post(post) %}
+                                    <span><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">Edit</a></span>
+                                {% endif %}
+                                {% if can_create_post() %}
+                                    <span>
+                                        <i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.username }}" class="reply-action">reply</a>
+                                    </span>{% endif %}
+                                <span class="number">{{ (pager.getPage - 1) * pager.getLimit + loop.index }}</span>
+                            </div>
+                            by
+                            <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> / posted {{ post.created|time_ago }}
+                        </div>
 
                         <p>{{ post.body }}</p>
                     </li>
                 {% endfor %}
             </ul>
+            {% if pager.isPaginable %}
+                {{ paginate(pager, 'topic_show', {'id': topic.id}) }}
+            {% endif %}
         </div>
     {% endif %}
 

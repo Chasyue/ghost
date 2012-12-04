@@ -28,6 +28,7 @@ class ChangePasswordController extends Controller
         $formHandler = $this->get('ghost.form.handler.change_password');
 
         if ($formHandler->process($user)) {
+            $this->get('session')->setFlash('success', 'Password changed!');
             return $this->redirect($this->generateUrl('home'));
         }
 

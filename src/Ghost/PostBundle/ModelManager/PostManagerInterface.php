@@ -28,10 +28,11 @@ interface PostManagerInterface
 
     /**
      * @param TopicInterface $topic
+     * @param integer $page
      *
      * @return array of post
      */
-    public function findPostsByTopic(TopicInterface $topic);
+    public function findPostsByTopic(TopicInterface $topic, $page = 1);
 
     /**
      * @param PostInterface $post

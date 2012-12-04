@@ -29,7 +29,7 @@ class SecurityController extends Controller
         }
 
         if ($error) {
-            $this->get('session')->getFlashBag()->add('error', $error->getMessage());
+            $this->get('session')->setFlash('error', $error->getMessage());
         }
 
         $lastUsername = $session->get(SecurityContext::LAST_USERNAME);

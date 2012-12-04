@@ -72,9 +72,9 @@ class AclPostManager implements PostManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function findPostsByTopic(TopicInterface $topic)
+    public function findPostsByTopic(TopicInterface $topic, $page = 1)
     {
-        $posts = $this->realManager->findPostsByTopic($topic);
+        $posts = $this->realManager->findPostsByTopic($topic, $page);
 
         foreach ($posts as $post) {
             if (!$this->postAcl->canView($post)) {

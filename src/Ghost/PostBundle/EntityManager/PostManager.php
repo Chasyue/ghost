@@ -2,6 +2,8 @@
 namespace Ghost\PostBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
+use Ghost\PostBundle\Pagination\ProxyQuery;
+use Ghost\PostBundle\Pagination\Pager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ghost\PostBundle\Model\TopicInterface;
@@ -61,7 +63,7 @@ class PostManager extends BasePostManager
     /**
      * {@inheritDoc}
      */
-    public function findPostsByTopic(TopicInterface $topic)
+    public function findPostsByTopic(TopicInterface $topic, $page = 1)
     {
         $qb = $this->repository->createQueryBuilder('p')
             ->select('p, t, u')
@@ -72,9 +74,10 @@ class PostManager extends BasePostManager
             ->orderBy('p.created', 'asc')
             ->setParameter('topic', $topic->getId());
 
-        $query = $qb->getQuery();
+        $pager = new Pager(new ProxyQuery($qb));
+        $pager->setPage($page)->setLimit(50);
 
-        return $query->getResult();
+        return $pager;
     }
 
     /**

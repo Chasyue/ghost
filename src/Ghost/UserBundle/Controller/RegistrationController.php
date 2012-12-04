@@ -18,7 +18,8 @@ class RegistrationController extends Controller
         $formHandler = $this->get('ghost.form.handler.registration');
 
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('home'));
+            $this->get('session')->setFlash('success', 'Registration finish, please login.');
+            return $this->redirect($this->generateUrl('security_login'));
         }
 
         return $this->render('GhostUserBundle:Registration:register.html.twig', array(

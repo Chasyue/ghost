@@ -27,6 +27,7 @@ class ProfileController extends Controller
         $formHandler = $this->get('ghost.form.handler.profile');
 
         if ($formHandler->process($user)) {
+            $this->get('session')->setFlash('success', 'Settings saved!');
             return $this->redirect($this->generateUrl('home'));
         }
 

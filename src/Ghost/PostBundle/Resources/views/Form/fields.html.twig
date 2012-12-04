@@ -25,7 +25,7 @@
 {% block form_errors %}
     {% spaceless %}
         {% if errors|length > 0 %}
-            <div class="alert alert-block">
+            <div class="alert alert-block alert-error">
                 {% for error in errors %}
                     <p>{{ error.messagePluralization is null
                     ? error.messageTemplate|trans(error.messageParameters, 'validators')
@@ -39,20 +39,20 @@
 
 {% block field_errors %}
     {% spaceless %}
-        {% if errors|length == 1 %}
-            {% set error = errors[0] %}
-            <span class="help-inline">
-                {{ error.messagePluralization is null
-                ? error.messageTemplate|trans(error.messageParameters, 'validators')
-                : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators') }}
-            </span>
-        {% endif %}
+        {#{% if errors|length == 1 %}#}
+            {#{% set error = errors[0] %}#}
+            {#<span class="help-block">#}
+                {#{{ error.messagePluralization is null#}
+                {#? error.messageTemplate|trans(error.messageParameters, 'validators')#}
+                {#: error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators') }}#}
+            {#</span>#}
+        {#{% endif %}#}
 
-        {% if errors|length > 1 %}
+        {% if errors|length > 0 %}
             <div class="help-block">
                 <ul class="unstyled">
                     {% for error in errors %}
-                        <li>{{ error.messagePluralization is null
+                        <li class="text-error">{{ error.messagePluralization is null
                         ? error.messageTemplate|trans(error.messageParameters, 'validators')
                         : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators') }}
                         </li>
