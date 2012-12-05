@@ -1,12 +1,25 @@
 <?php
 namespace Ghost\PostBundle\Twig\Extension;
-use Ghost\PostBundle\Markup\MarkupParser;
+use Ghost\PostBundle\Markup\ParserInterface;
 
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
 class MarkupExtension extends \Twig_Extension
 {
+    /**
+     * @var ParserInterface
+     */
+    private $parser;
+
+    /**
+     * @param ParserInterface $parser
+     */
+    public function __construct(ParserInterface $parser)
+    {
+        $this->parser = $parser;
+    }
+
     public function getFilters()
     {
         return array(
@@ -16,8 +29,7 @@ class MarkupExtension extends \Twig_Extension
 
     public function markup($text)
     {
-        $parser = new MarkupParser();
-        return $parser->parse($text);
+        return $this->parser->parse($text);
     }
 
     public function getName()

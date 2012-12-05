@@ -27,18 +27,6 @@ interface PostInterface
     public function getBody();
 
     /**
-     * @param string $rawBody
-     *
-     * @return self
-     */
-    public function setRawBody($rawBody);
-
-    /**
-     * @return string
-     */
-    public function getRawBody();
-
-    /**
      * Set isDeleted
      *
      * @param boolean $isDeleted

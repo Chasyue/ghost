@@ -12,7 +12,6 @@
         </id>
 
         <field name="body" type="text" column="body" />
-        <field name="rawBody" type="text" column="raw_body" />
         <field name="isDeleted" type="boolean" column="is_deleted" />
         <field name="created" type="integer" column="created" />
 

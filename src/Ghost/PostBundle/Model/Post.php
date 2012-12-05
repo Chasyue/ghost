@@ -21,11 +21,6 @@ abstract class Post implements PostInterface
     protected $body;
 
     /**
-     * @var string
-     */
-    protected $rawBody;
-
-    /**
      * @var boolean $isDeleted
      */
     protected $isDeleted = false;
@@ -78,25 +73,6 @@ abstract class Post implements PostInterface
     {
         return $this->body;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setRawBody($rawBody)
-    {
-        $this->rawBody = $rawBody;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRawBody()
-    {
-        return $this->rawBody ? $this->rawBody : $this->getBody();
-    }
-
 
     /**
      * {@inheritDoc}

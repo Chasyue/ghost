@@ -14,7 +14,6 @@
 
         <field name="title" type="string" column="title" length="200" />
         <field name="body" type="text" column="body" />
-        <field name="rawBody" type="text" column="raw_body" />
         <field name="viewsCount" type="integer" column="views_count" />
         <field name="repliesCount" type="integer" column="replies_count" />
         <field name="lastPost" type="integer" column="last_post" />

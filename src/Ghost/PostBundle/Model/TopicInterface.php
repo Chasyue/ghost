@@ -52,18 +52,6 @@ interface TopicInterface
     public function getBody();
 
     /**
-     * @param string $rawBody
-     *
-     * @return self
-     */
-    public function setRawBody($rawBody);
-
-    /**
-     * @return string
-     */
-    public function getRawBody();
-
-    /**
      * Increment viewsCount
      *
      * @param integer $by

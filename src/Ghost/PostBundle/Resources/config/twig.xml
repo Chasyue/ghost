@@ -10,6 +10,7 @@
         </service>
 
         <service id="ghost.markup.twig" class="Ghost\PostBundle\Twig\Extension\MarkupExtension">
+            <argument type="service" id="ghost.markup" />
             <tag name="twig.extension" />
         </service>
     </services>

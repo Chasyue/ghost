@@ -1,44 +1,46 @@
 <?php
 namespace Ghost\PostBundle\Markup;
 
-use Knp\Bundle\MarkdownBundle\Parser\MarkdownParser;
-
 /**
  * @author Wenming Tang <tang@babyfamily.com>
  */
 class Markup implements ParserInterface
 {
-    /**
-     * @var MarkdownParser
-     */
     private $parser;
 
-    /**
-     * @return MarkdownParser
-     */
-    private function getParser()
+    public function getParser()
     {
         if (null == $this->parser) {
-            $this->parser = new MarkdownParser(array(
-                'entities'  => false,
-                'header'    => false,
-                'table'     => false,
-                'auto_link' => true
+            $this->parser = new \Sundown\Markdown(new \Sundown\Render\HTML(array(
+                'filter_html'     => true,
+                'no_styles'       => true,
+                'no_links'        => true,
+                'no_images'       => true,
+                'safe_links_only' => true,
+                'with_toc_data'   => true,
+                'hard_wrap'       => true,
+                'xhtml'           => true,
+
+            )), array(
+                'autolink'            => true,
+                'tables'              => false,
+                'no_intra_emphasis'   => true,
+                'fenced_code_blocks'  => true,
+                'strikethrough'       => false,
+                'space_after_headers' => true,
+                'superscript'         => true,
+
+
             ));
         }
 
         return $this->parser;
     }
 
-    /**
-     * Takes a markup string and returns raw html.
-     *
-     * @param  string $raw
-     *
-     * @return string
-     */
     public function parse($raw)
     {
-        return $this->getParser()->transformMarkdown($raw);
+        $text = $this->getParser()->render(' ' . $raw); // this is a bug
+
+        return $text;
     }
 }
