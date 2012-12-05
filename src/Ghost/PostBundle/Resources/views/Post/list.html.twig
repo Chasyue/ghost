@@ -27,7 +27,7 @@
                                 by
                                 <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> / posted {{ post.created|time_ago }}
                             </div>
-                            <div class="reply-body">
+                            <div class="reply-body markdown-body">
                                 {{ post.body|markup }}
                             </div>
                         </td>
