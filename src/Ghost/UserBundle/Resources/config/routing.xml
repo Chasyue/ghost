@@ -4,10 +4,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="user_show" pattern="/@{username}">
-        <default key="_controller">GhostUserBundle:Profile:show</default>
-    </route>
-
     <route id="user_edit" pattern="/settings">
         <default key="_controller">GhostUserBundle:Profile:edit</default>
     </route>
@@ -28,5 +24,9 @@
     </route>
 
     <route id="security_logout" pattern="/logout">
+    </route>
+
+    <route id="user_show" pattern="/{username}">
+        <default key="_controller">GhostUserBundle:Profile:show</default>
     </route>
 </routes>
