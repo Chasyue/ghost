@@ -5,7 +5,7 @@
     <div class="right">
         {% if item.repliesCount %}
             <div class="replies">
-                <a class="badge" href="{{ path('topic_show', { 'id': item.id }) }}#reply{{ item.repliesCount }}">{{ item.repliesCount }}</a>
+                <a href="{{ path('topic_show', { 'id': item.id }) }}#reply{{ item.repliesCount }}">{{ item.repliesCount }}</a>
             </div>
             <h3><a href="{{ path('topic_show', { 'id': item.id }) }}#reply{{ item.repliesCount }}">{{ item.title }}</a>
             </h3>

@@ -150,8 +150,30 @@ pre {
     padding-left: 58px;
 }
 
-.topics .right .replies .badge:visited {
+.topics .right .replies a {
+    display: inline-block;
+    padding: 2px 9px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 14px;
+    color: white;
+    background-color: #08C;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    text-decoration: none;
+}
+
+.topics .right .replies a:hover {
+    background-color: #1DC115;
+}
+
+.topics .right .replies a:visited {
     background-color: #E5E5E5;
+}
+
+.topics .right .replies a:visited:hover {
+    background-color: #aaa;
 }
 
 .topics .topic .replies {
