@@ -148,6 +148,9 @@ pre {
 
 .topics .topic .right, .replies .reply .right {
     padding-left: 58px;
+}
+
+.topics .topic .right {
     padding-right: 35px;
 }
 
