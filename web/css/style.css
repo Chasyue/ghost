@@ -148,9 +148,21 @@ pre {
 
 .topics .topic .right, .replies .reply .right {
     padding-left: 58px;
+    padding-right: 30px;
 }
 
-.topics .right .replies a {
+.topics .topic h3 {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.topics .topic .replies {
+    float: right;
+}
+
+.topics .topic .replies a {
     display: inline-block;
     padding: 2px 9px;
     font-size: 10px;
@@ -164,27 +176,16 @@ pre {
     text-decoration: none;
 }
 
-.topics .right .replies a:hover {
+.topics .topic .replies a:hover {
     background-color: #1DC115;
 }
 
-.topics .right .replies a:visited {
+.topics .topic .replies a:visited {
     background-color: #E5E5E5;
 }
 
-.topics .right .replies a:visited:hover {
+.topics .topic .replies a:visited:hover {
     background-color: #aaa;
-}
-
-.topics .topic .replies {
-    float: right;
-}
-
-.topics .topic h3 {
-    font-size: 14px;
-    font-weight: normal;
-    margin-top: 5px;
-    margin-bottom: 8px;
 }
 
 .topics .topic .meta, .topic .meta, .replies .reply .meta {

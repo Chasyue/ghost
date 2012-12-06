@@ -2,25 +2,25 @@
     <div class="avatar">
         <a href="{{ path('user_show', {'username': item.user.username}) }}"><img width="48" height="48" src="{{ gravatar(item.user.email) }}"/></a>
     </div>
+
+    {% if item.repliesCount %}
+        <div class="replies">
+            <a href="{{ path('topic_show', { 'id': item.id }) }}#reply{{ item.repliesCount }}">{{ item.repliesCount }}</a>
+        </div>
+    {% endif %}
     <div class="right">
         {% if item.repliesCount %}
-            <div class="replies">
-                <a href="{{ path('topic_show', { 'id': item.id }) }}#reply{{ item.repliesCount }}">{{ item.repliesCount }}</a>
-            </div>
-            <h3><a href="{{ path('topic_show', { 'id': item.id }) }}#reply{{ item.repliesCount }}">{{ item.title }}</a>
-            </h3>
+            <h3><a href="{{ path('topic_show', { 'id': item.id }) }}#reply{{ item.repliesCount }}">{{ item.title }}</a></h3>
         {% else %}
             <h3><a href="{{ path('topic_show', { 'id': item.id }) }}">{{ item.title }}</a></h3>
         {% endif %}
-
         <div class="meta">
             {% if category is not defined %}
                 <a href="{{ path('topic_by_category', {'categoryAlias': item.category.alias}) }}" class="category">{{ item.category.name }}</a> •
             {% endif %}
             <a href="{{ path('user_show', {'username': item.user.username}) }}">{{ item.user.username }}</a> • posted {{ item.created|time_ago }}
             {% if item.lastPoster %}
-                • last reply by
-                <a href="{{ path('user_show', {'username': item.lastPoster}) }}">{{ item.lastPoster }}</a>
+                • last reply by <a href="{{ path('user_show', {'username': item.lastPoster}) }}">{{ item.lastPoster }}</a>
             {% endif %}
         </div>
     </div>
