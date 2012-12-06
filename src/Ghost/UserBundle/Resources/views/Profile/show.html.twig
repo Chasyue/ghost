@@ -1,22 +1,19 @@
 {% extends 'GhostUserBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="box">
+    <div class="box box-large profile">
         <div class="row-fluid">
-            <div class="span3 pull-left">
-                <table>
-                    <tr>
-                        <td><h3><a href="{{ path('user_show', {'username': user.username}) }}">@{{ user.username }}</a></h3></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href=""><img width="70" height="70" src="{{ gravatar(user.email, 70) }}" class="img-polaroid"/></a>
-                        </td>
-                    </tr>
-                </table>
+            <div class="span2 pull-left">
+                <a href=""><img width="70" height="70"
+                                src="{{ gravatar(user.email, 70) }}"
+                                class="img-polaroid"/></a>
+
             </div>
-            <div class="span9 pull-left">
+            <div class="span10">
+                <h1><a href="{{ path('user_show', {'username': user.username}) }}">@{{ user.username }}</a></h1>
+                <p class="activity">Registered {{ user.created|date }}</p>
             </div>
+
         </div>
     </div>
 {% endblock %}

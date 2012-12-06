@@ -180,6 +180,12 @@ pre {
     background-color: whiteSmoke;
 }
 
+.topics .topic .meta .category:hover {
+    text-decoration: none;
+    background-color: #E2E2E2;
+    color: #777;
+}
+
 .topic h1 {
     font-size: 22px;
     margin-bottom: 10px;
@@ -212,6 +218,11 @@ pre {
 
 .form-horizontal {
     padding-top: 30px;
+}
+
+.profile .activity {
+    margin-top: 20px;
+    color: #999;
 }
 
 .markdown {
