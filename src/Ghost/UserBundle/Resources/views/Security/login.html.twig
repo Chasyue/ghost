@@ -1,10 +1,10 @@
 {% extends 'GhostUserBundle::layout.html.twig' %}
 
 {% block user_body %}
-    <div class="well-header">
+    <div class="box-header">
         <h2>Sign In</h2>
     </div>
-    <div class="well-body">
+    <div class="box-body">
         <form class="form-horizontal" action="{{ path("security_login_check") }}" method="post">
 
             <div class="control-group">

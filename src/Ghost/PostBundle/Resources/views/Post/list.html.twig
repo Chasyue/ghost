@@ -1,41 +1,33 @@
-<div class="well well-small replies">
-    <div class="well-header">
+<div class="box box-gray">
+    <div class="box-header">
         <h3>Replies</h3>
     </div>
-    <ul class="item-list unstyled">
+    <div class="replies">
         {% for post in pager.getResults %}
-            <li class="clearfix item">
-                <table>
-                    <tr>
-                        <td width="48">
-                            <div class="avatar pull-left">
-                                <img src="{{ gravatar(post.user.email) }}" width="48" height="48"/>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="pull-right">
-                                {% if can_edit_post(post) %}
-                                    <span><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a></span>
-                                {% endif %}
-                                {% if can_create_post() %}
-                                    <span>
-                                        <i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.username }}" class="reply-action">reply</a>
-                                    </span>{% endif %}
-                                <span class="number">{{ (pager.getPage - 1) * pager.getLimit + loop.index }}</span>
-                            </div>
-                            <div class="muted">
-                                by
-                                <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> / posted {{ post.created|time_ago }}
-                            </div>
-                            <div class="reply-body markdown-body">
-                                {{ post.body|markup }}
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </li>
+            <div class="reply">
+                <div class="avatar">
+                    <img src="{{ gravatar(post.user.email) }}" width="48" height="48"/>
+                </div>
+                <div class="right">
+                    <div class="pull-right">
+                        {% if can_edit_post(post) %}
+                            <span><i class="icon-edit"></i> <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a></span>
+                        {% endif %}
+                        {% if can_create_post() %}
+                            <span>
+                                <i class="icon-comment"></i> <a href="javascript:void(0)" data-name="{{ post.user.username }}" class="reply-action">reply</a>
+                            </span>{% endif %}
+                        <span class="number">{{ (pager.getPage - 1) * pager.getLimit + loop.index }}</span>
+                    </div>
+                    <div class="meta"> by <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> / posted {{ post.created|time_ago }}
+                    </div>
+                    <div class="body">
+                        {{ post.body|markup }}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
     {% if pager.isPaginable %}
         {{ paginate(pager, 'topic_show', {'id': topic.id}) }}
     {% endif %}

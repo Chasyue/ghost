@@ -1,16 +1,16 @@
 {% extends 'GhostPostBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="well well-small clearfix topics">
-        <div class="well-header">
+    <div class="box box-gray">
+        <div class="box-header">
             <h3>Updated topics</h3>
         </div>
 
-        <ul class="item-list unstyled">
+        <div class="topics">
             {% for item in pager.getResults %}
             {% include 'GhostPostBundle:Topic:item_list.html.twig' %}
             {% endfor %}
-        </ul>
+        </div>
 
         {% if pager.isPaginable %}
             {{ paginate(pager, 'home') }}

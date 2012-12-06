@@ -1,25 +1,25 @@
 {% extends 'GhostPostBundle::layout.html.twig' %}
 
 {% block sidebar %}
-    <div class="well text-align-center">
+    <div class="box box-large box-gray text-align-center">
         <a href="{{ path('topic_new', {'categoryAlias': category.alias}) }}"><i class="icon-plus"></i> Post a New Topic</a>
     </div>
     {{ parent() }}
 {% endblock %}
 
 {% block body %}
-    <div class="well well-small clearfix topics">
-        <div class="well-header">
+    <div class="box box-gray">
+        <div class="box-header">
             <h2>{{ category.name }}</h2>
         </div>
 
-        <ul class="item-list unstyled">
+        <div class="topics">
             {% for item in pager.getResults %}
                 {% include 'GhostPostBundle:Topic:item_list.html.twig' %}
             {% else %}
                 <li>Category is empty.</li>
             {% endfor %}
-        </ul>
+        </div>
 
         {% if pager.isPaginable %}
             {{ paginate(pager, 'topic_by_category', {'categoryAlias': category.alias}) }}

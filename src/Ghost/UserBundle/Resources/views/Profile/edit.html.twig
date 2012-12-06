@@ -1,10 +1,10 @@
 {% extends 'GhostUserBundle::layout.html.twig' %}
 
 {% block user_body %}
-    <div class="well-header">
+    <div class="box-header">
         <h3>@{{ user.username }}</h3>
     </div>
-    <div class="well-body">
+    <div class="box-body">
         <form method="post" class="form-horizontal" action="{{ path('user_edit') }}" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
             <div class="control-group">
