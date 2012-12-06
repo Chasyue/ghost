@@ -21,7 +21,7 @@
                     </div>
                     <div class="meta"> by <a href="{{ path('user_show', {'username': post.user.username}) }}">{{ post.user.username }}</a> / posted {{ post.created|time_ago }}
                     </div>
-                    <div class="body">
+                    <div class="body markdown">
                         {{ post.body|markup }}
                     </div>
                 </div>

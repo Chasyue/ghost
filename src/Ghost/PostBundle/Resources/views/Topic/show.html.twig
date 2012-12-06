@@ -25,13 +25,13 @@
                 {% endif %}
             </div>
         </div>
-        <div class="box-body body">
+        <div class="box-body body markdown">
             {{ topic.body|markup }}
         </div>
     </div>
 
     {% if topic.repliesCount %}
-    {% include 'GhostPostBundle:Post:list.html.twig' %}
+    {% include 'GhostPostBundle:Post:posts.html.twig' %}
     {% endif %}
 
 
