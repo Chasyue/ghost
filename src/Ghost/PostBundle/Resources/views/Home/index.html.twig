@@ -8,7 +8,9 @@
 
         <div class="topics">
             {% for item in pager.getResults %}
-            {% include 'GhostPostBundle:Topic:topic_list.html.twig' %}
+                {% include 'GhostPostBundle:Topic:topic_list.html.twig' %}
+            {% else %}
+                <div class="topic">no topics.</div>
             {% endfor %}
         </div>
 
