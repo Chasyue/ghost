@@ -21,7 +21,7 @@
             </join-columns>
         </many-to-one>
 
-        <many-to-one field="topic" target-entity="Topic">
+        <many-to-one field="topic" target-entity="Topic" inversed-by="posts">
             <join-columns>
                 <join-column name="topic_id" referenced-column-name="id" />
             </join-columns>

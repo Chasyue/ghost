@@ -2,6 +2,7 @@
 namespace Ghost\PostBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NoResultException;
 use Ghost\PostBundle\Pagination\ProxyQuery;
 use Ghost\PostBundle\Pagination\Pager;
 use Doctrine\ORM\EntityRepository;
@@ -49,7 +50,23 @@ class TopicManager extends BaseTopicManager
      */
     public function findTopic($id)
     {
-        return $this->repository->findOneBy(array('id' => $id, 'isDeleted' => 0));
+        $qb = $this->repository->createQueryBuilder('t')
+            ->select('t, c, u')
+            ->join('t.category', 'c')
+            ->join('t.user', 'u')
+            ->where('t.isDeleted = 0')
+            ->andWhere('t.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $qb->getQuery();
+
+        try {
+            $topic = $query->getSingleResult();
+        } catch (NoResultException $e) {
+            $topic = null;
+        }
+
+        return $topic;
     }
 
     /**

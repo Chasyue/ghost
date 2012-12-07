@@ -2,6 +2,7 @@
 namespace Ghost\PostBundle\EntityManager;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NoResultException;
 use Ghost\PostBundle\Pagination\ProxyQuery;
 use Ghost\PostBundle\Pagination\Pager;
 use Doctrine\ORM\EntityRepository;
@@ -49,7 +50,23 @@ class PostManager extends BasePostManager
      */
     public function findPost($id)
     {
-        return $this->repository->findOneBy(array('id' => $id, 'isDeleted' => 0));
+        $qb = $this->repository->createQueryBuilder('p')
+            ->select('p, t, u')
+            ->join('p.topic', 't')
+            ->join('p.user', 'u')
+            ->where('p.id = :id')
+            ->andWhere('p.isDeleted = 0')
+            ->setParameter('id', $id);
+
+        $query = $qb->getQuery();
+
+        try {
+            $post = $query->getSingleResult();
+        } catch (NoResultException $e) {
+            $post = null;
+        }
+
+        return $post;
     }
 
     /**
