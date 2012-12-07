@@ -34,5 +34,9 @@ security:
             anonymous: true
 
     access_control:
-#        - { path: ^/topic/\d+, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+        - { path: ^/topic/new, roles: ROLE_USER }
+        - { path: ^/topic/edit, roles: ROLE_USER }
+        - { path: ^/topic/delete, roles: ROLE_USER }
+        - { path: ^/post/new, roles: ROLE_USER }
+        - { path: ^/post/edit, roles: ROLE_USER }
+        - { path: ^/post/delete, roles: ROLE_USER }
