@@ -19,10 +19,6 @@ security:
         connection: default
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
         secured_area:
             pattern:    ^/
             form_login:
@@ -32,6 +28,12 @@ security:
                 path:   /logout
                 target: /
             anonymous: true
+
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000
+                path:     /
+                domain:   ~
 
     access_control:
         - { path: ^/topic/new, roles: ROLE_USER }
