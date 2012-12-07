@@ -52,7 +52,8 @@ class TopicController extends Controller
 
         $this->get('ghost.manager.topic.default')->incrementViewsCount($topic);
 
-        $pager = $this->get('ghost.manager.post.acl')->findPostsByTopic($topic, $this->getRequest()->get('page', 1));
+        $pager = $this->get('ghost.manager.post.acl')->findPostsByTopic($topic);
+        $pager->setPage($this->getRequest()->get('page', $pager->getLastPage()));
 
         if ($this->get('ghost.acl.topic')->canReply($topic) && $this->get('ghost.acl.post')->canCreate()) {
             $postForm = $this->get('ghost.form.factory.post_new')->createForm($topic);

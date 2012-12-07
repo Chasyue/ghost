@@ -92,7 +92,7 @@ class PostManager extends BasePostManager
             ->setParameter('topic', $topic->getId());
 
         $pager = new Pager(new ProxyQuery($qb));
-        $pager->setPage($page)->setLimit(50);
+        $pager->setLimit(25)->setPage($page);
 
         return $pager;
     }
