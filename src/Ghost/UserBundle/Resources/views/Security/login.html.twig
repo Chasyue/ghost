@@ -6,7 +6,7 @@
     </div>
     <div class="box-body">
         <form class="form-horizontal" action="{{ path("security_login_check") }}" method="post">
-
+            <input type="hidden" name="_target_path" value="{{ target_path }}" />
             <div class="control-group">
                 <label class="control-label">Username</label>
 
@@ -32,4 +32,21 @@
             </div>
         </form>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function(){
+        var username = $('#username');
+        var password = $('#password');
+        if (username.val().length) {
+            password.focus();
+        }
+        else {
+            username.focus();
+        }
+    });
+</script>
 {% endblock %}

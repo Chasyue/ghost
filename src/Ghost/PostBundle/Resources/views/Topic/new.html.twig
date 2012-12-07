@@ -17,3 +17,12 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#topic_title').focus();
+        });
+    </script>
+{% endblock %}

@@ -33,7 +33,8 @@ class SecurityController extends Controller
         }
 
         $lastUsername = $session->get(SecurityContext::LAST_USERNAME);
+        $targetPath   = $request->headers->get('referer');
 
-        return $this->render('GhostUserBundle:Security:login.html.twig', array('last_username' => $lastUsername));
+        return $this->render('GhostUserBundle:Security:login.html.twig', array('last_username' => $lastUsername, 'target_path' => $targetPath));
     }
 }

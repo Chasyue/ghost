@@ -19,7 +19,7 @@ security:
         connection: default
 
     firewalls:
-        secured_area:
+        main:
             pattern:    ^/
             form_login:
                 check_path: /login_check
