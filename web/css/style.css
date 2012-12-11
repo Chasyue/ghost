@@ -258,3 +258,7 @@ pre {
 .markdown ul, .markdown ol {
     margin-left: 20px;
 }
+
+.markdown h2 {
+    margin-bottom: 10px;
+}
