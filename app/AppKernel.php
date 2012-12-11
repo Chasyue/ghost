@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new Ghost\PostBundle\GhostPostBundle(),
             new Ghost\UserBundle\GhostUserBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
-            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
