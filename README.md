@@ -16,8 +16,8 @@ Install
 
 ### 安装依赖包
 
-- 运行 `php composer.phar install` 安装vendor
-- 安装 php sundown 扩展（markdown支持）
+- 运行 `php composer.phar install` 安装第三方依赖
+- 安装 php sundown 扩展（markdown支持），地址：http://pecl.php.net/package/sundown
 
 
 ### 初始化
