@@ -1,4 +1,4 @@
-http://ghost.betanews.com.cn
+http://php-club.org/
 
 
 Install
@@ -23,14 +23,15 @@ Install
 ### 初始化
 
     php app/console doctrine:database:create
-    php app/console doctrine:shema:update
+    php app/console doctrine:schema:update --force
     php app/console ghost:acl:installAces
     
 ### 导入Session数据表结构
     
     mysql -uroot -proot
+    use dbname
     source src/Ghost/PostBundle/Resources/doc/schema.sql
     
 ### 完成
 
-访问 `http://localhost/Ghostbb/` 测试
+访问 `http://localhost/Ghost` 测试
